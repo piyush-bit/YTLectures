@@ -1,0 +1,11 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+*{
+    box-sizing: border-box;
+}
+
+.shadow-blue{
+    filter: drop-shadow(0 0 0 blue);
+}
