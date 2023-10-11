@@ -8,7 +8,7 @@ function Explore() {
     useEffect(() => {
         // Define the URL you want to fetch data from
         const url = 'http://localhost:8080/api/explore';
-        
+
 
         // Make a GET request using the Fetch API
         fetch(url)
@@ -31,21 +31,16 @@ function Explore() {
             });
     }, [])
 
-    const a =(val)=>{
-        // console.log(val);
-        return <Course tittle={val.title} src={''} id={val._id}/>
-    }
-
     return (
         <div>
             <p className='text-3xl font-bold mx-16 mt-8'>Enrolled Courses</p>
             <div className='w-52 h-1 bg-black mx-16'></div>
             <div className=' mx-10 flex flex-wrap justify-stretch'>
                 {/* {process.env.REACT_APP_BASE_URL} */}
-                {result.map(a)}
-                <Course src='https://img.youtube.com/vi/8nNqk2NPbRA/sddefault.jpg' tittle='This is title of the Course' id='PLDzeHZWIZsTryvtXdMr6rPh4IDexB5NIA' />
-
-
+                {result.map((val) => {
+                    // console.log(val);
+                    return <Course tittle={val.title} src={val.img_src} id={val._id} />
+                })}
 
             </div>
         </div>

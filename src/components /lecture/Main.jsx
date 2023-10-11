@@ -5,6 +5,7 @@ import LectureContent from './LectureContent'
 import { Navigate, useLocation, useNavigate, useParams } from 'react-router-dom';
 import NavButtons from './CourseNav/NavButtons'
 import DetailPage from './DetailPage';
+import Loading from './Loading';
 
 function Main(params) {
 
@@ -12,6 +13,7 @@ function Main(params) {
 
   const [data, setData] = useState([])
   const [fetched,setFetched ]= useState(false)
+  const [extra,setExtra] = useState();
 
   const { productId } = useParams();
 
@@ -34,6 +36,7 @@ function Main(params) {
         // Do something with the JSON data
         console.log(data);
         setFetched(true)
+        setExtra(data)
         setData(data.data);
       })
       .catch(error => {
@@ -79,17 +82,17 @@ function Main(params) {
 
   console.log(fetched)
   if (!m) {
-    return (<DetailPage />)
+    navigate(`/course/${productId}?m=0&l=0`);
   }
   if (!fetched) {
     console.log('not yet fetched');
-    return <DetailPage />
+    
+    return <Loading/>
   }
   
     return (
       <div className='flex h-screen overflow-hidden'>
         <div className='w-3/4 h-full overflow-auto'>
-          hg {m + ':' + l + ':' + productId}
           <Navigation playListId={productId} progress={progress} next={next} previous={previous} size={size} data={data[progress[0]].content[progress[1]].title} />
           <LectureContent data={data[progress[0]].content[progress[1]]} progress={progress} />
 
