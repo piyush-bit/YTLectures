@@ -7,7 +7,7 @@ function Explore() {
 
     useEffect(() => {
         // Define the URL you want to fetch data from
-        const url = 'http://localhost:8080/api/explore';
+        const url = `${import.meta.env.VITE_BASE_URL}/api/explore`;
 
 
         // Make a GET request using the Fetch API
