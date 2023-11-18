@@ -1,12 +1,13 @@
 
 import { Route, RouterProvider, createBrowserRouter } from 'react-router-dom'
 import './App.css'
-import Main from './components /Home/Main'
-import Home from './components /Home/Home/Home'
-import AboutUs from './components /Home/AboutUs/AboutUs'
-import Explore from './components /Home/Explore/Explore'
-import Create from './components /Home/Create/Create'
-import {default as LectureMain} from './components /lecture/Main'
+import Main from './components/Home/Main'
+import Home from './components/Home/Home/Home'
+import AboutUs from './components/Home/AboutUs/AboutUs'
+import Explore from './components/Home/Explore/Explore'
+import Create from './components/Home/Create/Create'
+import {default as LectureMain} from './components/lecture/Main'
+import {default as V2} from './components/HomeV2/main.jsx'
 
 function App() {
   const router = createBrowserRouter([

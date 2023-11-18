@@ -7,7 +7,9 @@ export default {
   theme: {
     extend: {
       colors : {
-        back : "#f7f7f8"
+        back : "#f7f7f8",
+        acc : '#1876d2',
+        gra : '#99a3ad'
       }
     },
   },
