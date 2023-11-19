@@ -1,0 +1,19 @@
+.line-clamp-3 {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    -webkit-line-clamp: 3; /* Number of lines to show */
+    max-height: 1.5em; /* Adjust based on the font size and line height */
+  }
+  .line-clamp-2 {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    -webkit-line-clamp: 2; /* Number of lines to show */
+     /* Adjust based on the font size and line height */
+  }
+
+  .blue-fill{
+    
+    filter: brightness(0.2) invert(.45) sepia(.7) hue-rotate(178deg) saturate(390%);
+  }

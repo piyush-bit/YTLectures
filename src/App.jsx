@@ -8,10 +8,12 @@ import Explore from './components/Home/Explore/Explore'
 import Create from './components/Home/Create/Create'
 import {default as LectureMain} from './components/lecture/Main'
 import {default as V2} from './components/HomeV2/main.jsx'
+import DetailPage from './components/DetailPage/DetailPage.jsx'
+
 
 function App() {
   const router = createBrowserRouter([
-    { path : '/',element : <Main/>, 
+    { path : '/',element : <DetailPage/>, 
     children :[
       {path : '/',element : <Home/>},
       {path : '/about' , element : <AboutUs/>}, 
