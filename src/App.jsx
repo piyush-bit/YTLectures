@@ -9,11 +9,14 @@ import Create from './components/Home/Create/Create'
 import {default as LectureMain} from './components/lecture/Main'
 import {default as V2} from './components/HomeV2/main.jsx'
 import DetailPage from './components/DetailPage/DetailPage.jsx'
+import LoginPage from './components/LoginResister/LoginPage.jsx'
+import SignupPage from './components/LoginResister/SignupPage.jsx'
+import ForgotPassword from './components/LoginResister/ForgotPassword.jsx'
 
 
 function App() {
   const router = createBrowserRouter([
-    { path : '/',element : <DetailPage/>, 
+    { path : '/',element : <V2/>, 
     children :[
       {path : '/',element : <Home/>},
       {path : '/about' , element : <AboutUs/>}, 
@@ -21,8 +24,17 @@ function App() {
       {path : '/create' , element : <Create/>}, 
     ]},
     {
-      path : '/course/:productId' , element :<LectureMain/>,
-    }
+      path : '/course/:productId' , element :<DetailPage/>,
+    },
+    {
+      path : '/login' , element :<LoginPage/>,
+    },
+    {
+      path : '/signup' , element :<SignupPage/>,
+    },
+    {
+      path : '/forgotpassword' , element :<ForgotPassword/>,
+    },
   ])
 
   // const router = createBrowserRouter([
