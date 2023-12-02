@@ -17,3 +17,8 @@
     
     filter: brightness(0.2) invert(.45) sepia(.7) hue-rotate(178deg) saturate(390%);
   }
+
+  .back-grad{
+    background: rgb(255,255,255);
+background: linear-gradient(270deg,rgba(255,255,255,0) 0%, rgba(255,255,255,0.1) 50%, rgba(24,118,210,0.3) 100%);
+  }

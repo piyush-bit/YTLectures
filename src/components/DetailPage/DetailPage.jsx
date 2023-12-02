@@ -1,21 +1,30 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { useParams ,useNavigate } from "react-router-dom";
+import { useParams ,useNavigate, useLocation } from "react-router-dom";
 import SunbscribeCard from "./SunbscribeCard";
 import LectureSeq from "./LectureSeq";
 import { PTtocolConvert, formatDate } from "../../utils/timeConvert";
+import LecturePage from "../LectureV2/LecturePage";
 
-function DetailPage() {
-  const [data, setData] = useState([]);
+function DetailPage({data}) {
+
   const [loading, setLoading] = useState(false);
-  const [extra, setExtra] = useState(false);
+  const [extra, setExtra] = useState(data);
   const [error, setError] = useState(false);
 
+  
   const navigate = useNavigate();
-
+  
   const { productId } = useParams();
-
+  const location = useLocation();
+  const queryParams = new URLSearchParams(location.search);
+  const m = queryParams.get('m');
+  const l = queryParams.get('l');
+  
+  const [page,setPage] =useState(queryParams.has('m') && queryParams.has('l'));
   useEffect(()=>{
+    if(data!=undefined)
+    return
     setLoading(true);
     ;(async () => {
       try {
@@ -33,6 +42,12 @@ function DetailPage() {
   return(<div className="flex bg-back items-center justify-center h-screen w-screen">
     <div className="text-5xl font-bold" >Loading...</div>
     </div>)
+
+    if(page){
+      console.log(m,'m,l',l);
+      console.log('data',data);
+      return <LecturePage data={extra}/>
+    }
 
   
 
@@ -123,7 +138,7 @@ function DetailPage() {
         </div>
 
         <div className="h-screen outline outline-1 outline-gray-200 "></div>
-        <SunbscribeCard data={extra}/>
+        <SunbscribeCard data={extra} setPage={setPage}/>
       </div>
     </div>
   );

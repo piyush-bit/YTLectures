@@ -8,7 +8,7 @@ function LectureCard({ data }) {
   const navigate = useNavigate();
   const [clicked,setClicked] = useState();
   return (
-    <div onClick={(e)=>{setClicked(!clicked); setTimeout(()=>{navigate(`/course/${data._id}`)},400) ;}} className={`${clicked?'zoomed':''}`} >
+    <div onClick={(e)=>{setClicked(!clicked); setTimeout(()=>{navigate(`/course/${data._id}/#`)},400) ;}} className={`${clicked?'zoomed':''}`} >
       <div className="bg-white shadow-[rgba(17,_17,_26,_0.1)_0px_0px_4px] h-96 w-72 rounded-md flex flex-col hover:shadow-[rgba(17,_17,_26,_0.1)_0px_0px_60px] hover:cursor-pointer transform scale-100 hover:scale-110 hover:z-50 duration-150 first-letter:` ">
         <div className="w-72 h-44  relative">
           <div

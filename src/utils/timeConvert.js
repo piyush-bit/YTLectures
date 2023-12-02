@@ -42,7 +42,10 @@ export const formatTimetohour=function(input) {
   if(input==undefined)return
   const arr = input.match(/\d+/g).map(Number);
   if(arr.length==3){
-    return arr[0] + ' hours   ' + arr[1]+ 'mins'
+    if(arr[0]==0){
+      return arr[1] + ' mins'
+    }
+    return arr[0] + 'hours   ' + arr[1]+ 'mins'
   }
   else{
     return arr[0] + ' mins'
