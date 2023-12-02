@@ -4,7 +4,6 @@ import Navigation from './Navigation'
 import LectureContent from './LectureContent'
 import { Navigate, useLocation, useNavigate, useParams } from 'react-router-dom';
 import NavButtons from './CourseNav/NavButtons'
-import DetailPage from './DetailPage';
 import Loading from './Loading';
 
 function Main(params) {
