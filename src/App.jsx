@@ -6,7 +6,6 @@ import Home from './components/Home/Home/Home'
 import AboutUs from './components/Home/AboutUs/AboutUs'
 import Explore from './components/Home/Explore/Explore'
 import Create from './components/Home/Create/Create'
-import {default as LectureMain} from './components/lecture/Main'
 import {default as V2} from './components/HomeV2/main.jsx'
 import DetailPage from './components/DetailPage/DetailPage.jsx'
 import LoginPage from './components/LoginResister/LoginPage.jsx'
@@ -18,6 +17,7 @@ import { useEffect } from 'react'
 import axios from 'axios'
 import { useDispatch } from 'react-redux'
 import { addUser } from './features/UserSlice.js'
+import Profile from './components/Profile/Profile.jsx'
 
 
 function App() {
@@ -45,12 +45,13 @@ function App() {
 
   const router = createBrowserRouter([
     { path : '/',element : <V2/>, 
-    children :[
-      {path : '/',element : <Home/>},
-      {path : '/about' , element : <AboutUs/>}, 
-      {path : '/explore' , element : <Explore/>}, 
-      {path : '/create' , element : <Create/>}, 
-    ]},
+    // children :[
+    //   {path : '/',element : <Home/>},
+    //   {path : '/about' , element : <AboutUs/>}, 
+    //   {path : '/explore' , element : <Explore/>}, 
+    //   {path : '/create' , element : <Create/>}, 
+    // ]
+  },
     {
       path : '/course/:productId/#' , element :<DetailPage/>,
     },
@@ -72,31 +73,34 @@ function App() {
     {
       path : '/lecture' , element :<LecturePage/>,
     },
+    {
+      path : '/profile' , element :<Profile/>,
+    },
   ])
 
   // const location = useLocation();
   // const queryParams = new URLSearchParams(location.search);
 
-  const router2 = createBrowserRouter([
-    <Routes>
-    <Route
-      path="/"
-      element={<V2 />}
-    >
-      <Route path="/" element={<Home />} />
-      <Route path="/about" element={<AboutUs />} />
-      <Route path="/explore" element={<Explore />} />
-      <Route path="/create" element={<Create />} />
-    </Route>
-    <Route path="/course/:productId/" element={<DetailPage />} />
+  // const router2 = createBrowserRouter([
+  //   <Routes>
+  //   <Route
+  //     path="/"
+  //     element={<V2 />}
+  //   >
+  //     <Route path="/" element={<Home />} />
+  //     <Route path="/about" element={<AboutUs />} />
+  //     <Route path="/explore" element={<Explore />} />
+  //     <Route path="/create" element={<Create />} />
+  //   </Route>
+  //   <Route path="/course/:productId/" element={<DetailPage />} />
 
-    <Route path="/login" element={<LoginPage />} />
-    <Route path="/signup" element={<SignupPage />} />
-    <Route path="/forgotpassword" element={<ForgotPassword />} />
-    <Route path="/create" element={<CreatePage />} />
-    <Route path="/lecture" element={<LecturePage />} />
-  </Routes>
-   ])
+  //   <Route path="/login" element={<LoginPage />} />
+  //   <Route path="/signup" element={<SignupPage />} />
+  //   <Route path="/forgotpassword" element={<ForgotPassword />} />
+  //   <Route path="/create" element={<CreatePage />} />
+  //   <Route path="/lecture" element={<LecturePage />} />
+  // </Routes>
+  //  ])
 
   return (
     <>

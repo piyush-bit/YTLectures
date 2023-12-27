@@ -34,6 +34,18 @@ function SignupPage() {
               </div>
               <div className="group">
                 <div className="flex justify-between">
+                  <div className="uppercase font-bold text-sm ">Username</div>
+                  <input
+                    className=" outline-none text-right flex-grow font-bold "
+                    type="text"
+                    name=""
+                    id=""
+                  />
+                </div>
+                <div className="outline w-full my-2 group-focus-within:outline-acc"></div>
+              </div>
+              <div className="group">
+                <div className="flex justify-between">
                   <div className="uppercase font-bold text-sm">Password</div>
                   <input
                     className="outline-none text-right flex-grow font-bold "

@@ -1,9 +1,51 @@
-import React from "react";
+import React, { useState } from "react";
 import { formatDate } from "../../utils/timeConvert";
 import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
+import axios from "axios";
 
 function SunbscribeCard({ data, setPage }) {
   const navigate = useNavigate();
+
+  const user = useSelector((state) => state.user);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(false);
+  const [result, setResult] = useState([]);
+
+  console.log("user", user);
+
+  const subscribe = async () => {
+    try {
+      const axiosConfig = {
+        method: "put",
+        url: `${import.meta.env.VITE_BASE_URL}/api/user/sub/course`,
+        data: { id: data._id },
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        withCredentials: true, // Include credentials (cookies) in the request
+      };
+      console.log('subs');
+      setLoading(true);
+      const d = await axios(axiosConfig)
+      console.log("result", d);
+      setResult(d.data);
+      setLoading(false);
+    } catch (error) {
+      setError(error);
+      setLoading(false);
+      console.log(error);
+    }
+  };
+  const onClickHandler = (e) => {
+    (async () => {
+      user && (await subscribe());
+
+      navigate(`./?m=0&l=0`, { replace: true });
+      setPage(true);
+    })();
+  };
 
   return (
     <div className="ml-8 mr-6 flex-grow justify-center  hidden xl:flex ">
@@ -39,12 +81,7 @@ function SunbscribeCard({ data, setPage }) {
         </div>
         <div className="flex items-center mt-5 mb-6 gap-5">
           <button
-            onClick={() => {
-              navigate(`./?m=0&l=0`
-              , { replace: true }
-              );
-              setPage(true);
-            }}
+            onClick={onClickHandler}
             className="px-6 py-2 bg-acc text-white hover:outline hover:outiline-1 hover:outline-acc hover:text-acc hover:bg-white"
           >
             Enroll for Free

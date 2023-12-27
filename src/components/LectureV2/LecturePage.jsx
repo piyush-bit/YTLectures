@@ -5,7 +5,7 @@ import axios from "axios";
 import VideoLayout from "./VideoLayout";
 import { formatTimetohour } from "../../utils/timeConvert";
 
-function LecturePage({ data: g }) {
+function LecturePage({ data: g , setPage }) {
   console.log('g',g)
   const [data, setData] = useState(g);
   const [loading, setLoading] = useState(false);
@@ -82,7 +82,10 @@ function LecturePage({ data: g }) {
         <div className="outline outline-1 outline-gray-200 my-6 "></div>
         <div className="pr-5 pl-8 pt-10 w-[410px] flex-shrink-0 h-screen overflow-auto">
         <div className="text-xs -mb-">{`${data.data.data.length} modules . ${formatTimetohour(data.duration)}`}</div>
-          <div className="text-2xl font-semibold mb-6">{data.title}</div>
+          <div
+          onClick={(e)=>{setPage(false)}}
+          
+          className="text-2xl font-semibold mb-6">{data.title}</div>
 
           <div className="mb-16"> </div>
           <div className="flex gap-2"></div>
