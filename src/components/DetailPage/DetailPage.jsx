@@ -46,7 +46,7 @@ function DetailPage({data}) {
     if(page){
       console.log(m,'m,l',l);
       console.log('data',data);
-      return <LecturePage data={extra}/>
+      return <LecturePage data={extra} setPage={setPage}/>
     }
 
   
@@ -133,7 +133,7 @@ function DetailPage({data}) {
 
          {extra?.data?.data?.map((e,i)=>{
 
-           return  (i!=0)?<LectureSeq key={i} id={i} data={e}/> : <LectureSeq key={i} data={e} open={true}/>;
+           return  (i!=0)?<LectureSeq key={i} id={i} data={e} setPage={setPage}/> : <LectureSeq key={i} data={e} id={i} open={true} setPage={setPage}/>;
          })}
         </div>
 

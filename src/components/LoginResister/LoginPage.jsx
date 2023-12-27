@@ -89,10 +89,10 @@ function LoginPage() {
             </div>
           </div>
           <div className="flex flex-wrap">
-            <div className="text-sm font-bold flex gap-2 items-center ">
+            {/* <div className="text-sm font-bold flex gap-2 items-center ">
               <input className="" type="checkbox" name="" id="" />
               Stay Logged in
-            </div>
+            </div> */}
             <Link
               className="ml-auto font-bold text-sm hover:underline hover:cursor-pointer"
               to={"/forgotpassword"}

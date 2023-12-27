@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import LectureVideo from "./LectureVideo";
 import { PTtocolConvert } from "../../utils/timeConvert";
 
-function LectureSeq({ data ,open=false , id}) {
+function LectureSeq({ data ,open=false , id , setPage}) {
 
   const [openstate,setOpenstate] = useState(open);
 
@@ -22,7 +22,7 @@ function LectureSeq({ data ,open=false , id}) {
       </div>
       <div className={`${!openstate?'hidden':''}`}>
       {data.data.map((e,i) => (
-        <LectureVideo data={e} key={id+','+i} />
+        <LectureVideo data={e} key={`m=${id}&l=${i}` }id={`?m=${id}&l=${i}`} setPage={setPage}/>
 
       ))}
       </div>
