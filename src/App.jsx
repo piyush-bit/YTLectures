@@ -18,6 +18,7 @@ import axios from 'axios'
 import { useDispatch } from 'react-redux'
 import { addUser } from './features/UserSlice.js'
 import Profile from './components/Profile/Profile.jsx'
+import Finalizing from './components/Create/Finalizing.jsx'
 
 
 function App() {
@@ -68,7 +69,7 @@ function App() {
       path : '/forgotpassword' , element :<ForgotPassword/>,
     },
     {
-      path : '/create' , element :<CreatePage/>,
+      path : '/create' , element :<Finalizing/>,
     },
     {
       path : '/lecture' , element :<LecturePage/>,
