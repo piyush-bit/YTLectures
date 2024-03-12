@@ -38,7 +38,7 @@ function Profile() {
                     <h2 className="font-medium">Hitesh Choudhary . 438,974 youtube views</h2>
                     <h3>Learn reactjs with chai and me. This is one of beginner friendly reactjs series that will teach you foundation of reactjs by building projects in react.</h3>
 
-                    <h1 className="text-8xl">*****</h1>
+                    <h1 className="text-3   xl">⭐⭐⭐⭐⭐</h1>
 
                 </div>
                 <div className="">

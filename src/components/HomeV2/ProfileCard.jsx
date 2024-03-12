@@ -1,11 +1,12 @@
 import axios from "axios";
 import React from "react";
+import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
+import { removeUser } from "../../features/UserSlice";
 
-function ProfileCard({ data }) {
-
+function ProfileCard({ data , setProfileClicked }) {
+  const dispatch = useDispatch();
   const signoutHandler = async (e) => {
-    console.log("hey");
     // Set up Axios request configuration
     const axiosConfig = {
       method: "post",
@@ -17,14 +18,15 @@ function ProfileCard({ data }) {
       withCredentials: true, // Include credentials (cookies) in the request
     };
     axios(axiosConfig) .then(response => {
-      console.log('Response:', response.data);
+      dispatch(removeUser())
+      setProfileClicked(prev=>!prev)
     })
     .catch(error => {
       console.error('Error:', error);
     });
   };
   // console.log('user', data);
-  if (!data)
+  if (!data||data==undefined)
     return (
       <div className="h-48 w-64 py-3 bg-white rounded-md shadow-md flex flex-col ">
         <Link to={"/login"}>Login</Link>
@@ -34,7 +36,7 @@ function ProfileCard({ data }) {
     <div className="h-48 w-64 py-3 bg-white rounded-md shadow-md flex flex-col ">
       <div className="flex ">
         {data.dp == undefined ? (
-          <div className="h-16 w-16 rounded-full m-4 mt-2 bg-yellow-200 flex items-center justify-center">{data.name[0]}</div>
+          <div className="h-16 w-16 rounded-full m-4 mt-2 bg-yellow-200 flex items-center justify-center">{data?.name[0]}</div>
         ) : (
           <img className="h-20 w-20 rounded-full p-4 mt-2" src={data.dp} alt="" />
         )}

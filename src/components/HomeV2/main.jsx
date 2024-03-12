@@ -5,7 +5,7 @@ import TopicList from "./TopicList";
 import axios from "axios";
 import ProfileCard from "./ProfileCard";
 import { useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Explore from "../Home/Explore/Explore";
 
 function main() {
@@ -57,7 +57,7 @@ function main() {
   }, [section]);
 
 
-
+  console.log("user",user)
 
   useEffect(() => {
     (async () => {
@@ -108,7 +108,10 @@ function main() {
               className="h-3 w-3 contrast-50 hover:cursor-pointer"
             />
           </div>
-          <div
+          {user?null:<Link to={"/login"}><div className="py-2 px-4 bg-acc rounded-full text-white shadow-md">
+            Log In
+          </div></Link>}
+          {!user||<div
             className="h-10 w-10 relative flex items-center justify-center bg-white rounded-full shadow-md transition-all hover:cursor-pointer"
             onClick={(e) => {
               setProfileClicked((prev) => !prev);
@@ -128,9 +131,9 @@ function main() {
             ) : (
               user.name?.charAt(0)
             )}
-          </div>
+          </div>}
           <div className={`absolute top-24 right-8 ${profileclicked ? "" : "hidden"}`}>
-            <ProfileCard data={user} />
+            <ProfileCard data={user} setProfileClicked={setProfileClicked} />
           </div>
         </div>
       </div>
