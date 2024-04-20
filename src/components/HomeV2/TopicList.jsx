@@ -1,12 +1,14 @@
 import React from "react";
 
-function TopicList({name,setTagSelected,isActive}) {
+function TopicList({name,setTagSelected,isActive,id,setTagId}) {
 
   const clickHandler = (e)=>{
     if(name=='all'){
       setTagSelected(null)
     }
     setTagSelected(name)
+
+    setTagId(id)
   }
   return (
     <div onClick={clickHandler}
