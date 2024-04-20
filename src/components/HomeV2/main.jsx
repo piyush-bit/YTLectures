@@ -24,12 +24,9 @@ function main() {
 
   const [section,setSection] = useState('explore');
   const [tagSelected,setTagSelected] = useState();
-
   const [tags , setTags]=useState()
-
-
   const [profileclicked, setProfileClicked] = useState(false);
-
+  const [tagId, setTagId] = useState();
   const user = useSelector((state) => state.user);
   const navigate = useNavigate();
 
@@ -38,12 +35,12 @@ function main() {
       try {
         let url 
         if(section==EXPLORE)
-         url = `${import.meta.env.VITE_BASE_URL}/api/explore`
+         url = `${import.meta.env.VITE_BASE_URL}/api/course/getwithtag`
         else if(section==SUB)
-        url = `${import.meta.env.VITE_BASE_URL}/api/user/course/subscribedCourses`
+        url = `${import.meta.env.VITE_BASE_URL}/api/user/course/subscribedCourses?q=`
         setLoading(true);
         const d = await axios.get(
-          url , { withCredentials : true}
+          url , { withCredentials : true , params: {tagId:tagId} }
         );
         console.log(d);
         setData(d.data);
@@ -54,7 +51,7 @@ function main() {
         setLoading(false);
       }
     })();
-  }, [section]);
+  }, [section,tagId]);
 
 
   console.log("user",user)
@@ -161,9 +158,9 @@ function main() {
               </div>
             </div>
 
-            <TopicList name="All" setTagSelected={setTagSelected} isActive={tagSelected==null} />
+            <TopicList name="All" setTagSelected={setTagSelected} id={""} isActive={tagSelected==null} setTagId={setTagId} />
             {tags&&tags.map((e)=>{
-              return <TopicList name={e.title} setTagSelected={setTagSelected} isActive={tagSelected==e.title}/>
+              return <TopicList name={e.title} id={e._id} setTagSelected={setTagSelected} isActive={tagSelected==e.title} setTagId={setTagId}/>
             })}
           </div>
         </div>
@@ -172,7 +169,7 @@ function main() {
       <div className="flex  ">
         <div className="lecturelist flex flex-wrap gap-16  ml-72 pl-12 pr-12 pb-6 pt-16 justify-center">
           <div className={`${error ? "" : "hidden"}`}>{error.message}</div>
-          <div className={`${loading ? "" : "hidden"}`}>Loading</div>
+          <div className={`${loading ? "" : "hidden"}`}>{"Loading ! May take 50-80 s server is starting "}</div>
           {data.map((e) => (
             <LectureCard key={e._id} data={e} />
           ))}
