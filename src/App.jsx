@@ -19,6 +19,7 @@ import { useDispatch } from 'react-redux'
 import { addUser } from './features/UserSlice.js'
 import Profile from './components/Profile/Profile.jsx'
 import Finalizing from './components/Create/Finalizing.jsx'
+import ConstructionAlert from './components/Create/ConstructionAlert.jsx'
 
 
 function App() {
@@ -69,13 +70,16 @@ function App() {
       path : '/forgotpassword' , element :<ForgotPassword/>,
     },
     {
-      path : '/create' , element :<Finalizing/>,
+      path : '/create' , element :<ConstructionAlert/>,
     },
     {
       path : '/lecture' , element :<LecturePage/>,
     },
     {
       path : '/profile' , element :<Profile/>,
+    },
+    {
+      path : '/test' , element :<CreatePage/>,
     },
   ])
 
