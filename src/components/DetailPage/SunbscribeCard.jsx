@@ -72,7 +72,7 @@ function SunbscribeCard({ data, setPage }) {
           {data.review} ★ · ({data.review_number} review)
         </div>
         <div className="font- text-gray-600">
-          {data.views.split(" ")[0]} youtube views
+          {data.views?.split(" ")[0]} youtube views
         </div>
         <div className="font- text-gray-600">Tutuor : {data.channelName}</div>
         <div className="font- text-gray-600">Created by : {"Piyush Kumar"}</div>
