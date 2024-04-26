@@ -61,9 +61,9 @@ function VideoLayout({data,progress,next,previous}) {
             data.data.data[progress[0]].data[progress[1]].description}</div> */}
             <Description data={data.data.data[progress[0]].data[progress[1]].description}/>
 
-            <div className="group transition-transform duration-300 flex gap-4 items-center justify-center outline rounded-md outline-1 outline-gray-500 px-5 py-3 w-fit ml-auto my-9 mx-5 hover:bg-acc hover:outline-acc hover:text-white">
-              Completed
-              {/* <img className="h-5   rotate-180 hidden  invert transition-all group-hover:block" src="https://cdn-icons-png.flaticon.com/64/2985/2985161.png" alt="" /> */}
+            <div className="group duration-300 flex gap-4 items-center justify-center outline rounded-md outline-1 outline-gray-500 px-5 py-3 w-fit ml-auto my-9 mx-5 hover:bg-acc hover:outline-acc hover:text-white cursor-pointer hover:mr-0 transition-all">
+              <p className='-mr-8 group-hover:mr-0 transition-all'>Completed</p>
+              <img className="h-5 rotate-180 scale-0  invert transition-all group-hover:scale-100 -my-4" src="https://cdn-icons-png.flaticon.com/64/2985/2985161.png" alt="" />
             </div>
           </div>
         </div>
