@@ -88,7 +88,7 @@ function DetailPage({data}) {
           </div>
           <div className="flex flex-wrap items-center gap-10 text-lg text-gra">
             <div className="text-lg px-4  py-1 rounded-md bg-black text-white">
-              { 'Design'}
+              { extra.tags[0]?.title || 'Design Thinking'}
             </div>
             |
             <div className="flex items-center gap-3">
