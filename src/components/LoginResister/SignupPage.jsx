@@ -148,7 +148,7 @@ function SignupPage() {
             </div>}
           </div>
           <div className="flex  flex-wrap items-center gap-2 my-6 justify-around">
-            <div className=" transition-all group w-52 outline flex gap-2 items-center  uppercase text-sm font-bold py-2 px-5 hover:outline-blue-600 hover:bg-blue-600 hover:text-white">
+            <div className=" transition-all group w-52 outline flex gap-2 items-center  uppercase text-sm font-bold py-2 px-5 hover:outline-blue-600 hover:bg-blue-600 hover:text-white hidden">
               <img
                 className="h-5 group-hover:invert "
                 src="https://cdn-icons-png.flaticon.com/64/20/20837.png"
@@ -156,7 +156,7 @@ function SignupPage() {
               />
               Using Facebook
             </div>
-            <div className="transition-all group w-52 outline flex gap-2 items-center  uppercase text-sm font-bold py-2 px-5 hover:outline-red-600 hover:bg-red-600 hover:text-white">
+            <div className="transition-all group w-52 outline flex gap-2 items-center  uppercase text-sm font-bold py-2 px-5 hover:outline-red-600 hover:bg-red-600 hover:text-white hidden">
               <img
                 className="h-5 group-hover:invert "
                 src="https://cdn-icons-png.flaticon.com/64/104/104093.png"
