@@ -22,3 +22,18 @@
     background: rgb(255,255,255);
 background: linear-gradient(270deg,rgba(255,255,255,0) 0%, rgba(255,255,255,0.1) 50%, rgba(24,118,210,0.3) 100%);
   }
+
+  /* HTML: <div class="loader"></div> */
+/* HTML: <div class="loader"></div> */
+.loader {
+  width: 120px;
+  height: 20px;
+  -webkit-mask: linear-gradient(90deg,#000 70%,#0000 0) left/20% 100%;
+  background:
+   linear-gradient(hsl(209, 96%, 58%) 0 0) left -25% top 0 /20% 100% no-repeat
+   #ddd;
+  animation: l7 1s infinite steps(6);
+}
+@keyframes l7 {
+    100% {background-position: right -25% top 0}
+}
