@@ -13,20 +13,25 @@ import SignupPage from './components/LoginResister/SignupPage.jsx'
 import ForgotPassword from './components/LoginResister/ForgotPassword.jsx'
 import CreatePage from './components/Create/CreatePage.jsx'
 import LecturePage from './components/LectureV2/LecturePage.jsx'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import axios from 'axios'
 import { useDispatch } from 'react-redux'
 import { addUser } from './features/UserSlice.js'
 import Profile from './components/Profile/Profile.jsx'
 import Finalizing from './components/Create/Finalizing.jsx'
 import ConstructionAlert from './components/Create/ConstructionAlert.jsx'
+import ServerStarting from './components/LoadingScreens/ServerStarting.jsx'
 
 
 function App() {
 
   const dispatch = useDispatch();
+  const [serverStated , setServerStated] = useState(false)
+  const [error , setError] = useState(false)
 
   useEffect(()=>{
+    
+
     const axiosConfig = {
       method: "get",
       url: `${import.meta.env.VITE_BASE_URL}/api/user/`,
@@ -43,17 +48,15 @@ function App() {
     .catch(error => {
       console.error('Error:', error);
     });
+
+
+    // check server heallth ad tell user to wait for sever till it responds 
+    axios.get(`${import.meta.env.VITE_BASE_URL}/`).then((res)=>{setServerStated(true)}).catch((err)=>{setError(err)})
+
   },[])
 
   const router = createBrowserRouter([
-    { path : '/',element : <V2/>, 
-    // children :[
-    //   {path : '/',element : <Home/>},
-    //   {path : '/about' , element : <AboutUs/>}, 
-    //   {path : '/explore' , element : <Explore/>}, 
-    //   {path : '/create' , element : <Create/>}, 
-    // ]
-  },
+    { path : '/',element : <V2/>, },
     {
       path : '/course/:productId/#' , element :<DetailPage/>,
     },
@@ -81,31 +84,15 @@ function App() {
     {
       path : '/test' , element :<CreatePage/>,
     },
+    {
+      path : '/testFinal' , element :<Finalizing/>,
+    },
   ])
 
-  // const location = useLocation();
-  // const queryParams = new URLSearchParams(location.search);
-
-  // const router2 = createBrowserRouter([
-  //   <Routes>
-  //   <Route
-  //     path="/"
-  //     element={<V2 />}
-  //   >
-  //     <Route path="/" element={<Home />} />
-  //     <Route path="/about" element={<AboutUs />} />
-  //     <Route path="/explore" element={<Explore />} />
-  //     <Route path="/create" element={<Create />} />
-  //   </Route>
-  //   <Route path="/course/:productId/" element={<DetailPage />} />
-
-  //   <Route path="/login" element={<LoginPage />} />
-  //   <Route path="/signup" element={<SignupPage />} />
-  //   <Route path="/forgotpassword" element={<ForgotPassword />} />
-  //   <Route path="/create" element={<CreatePage />} />
-  //   <Route path="/lecture" element={<LecturePage />} />
-  // </Routes>
-  //  ])
+  if(!serverStated)
+  return(
+    <ServerStarting error={error}/>
+  )
 
   return (
     <>
