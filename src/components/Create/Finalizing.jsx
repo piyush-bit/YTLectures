@@ -4,12 +4,13 @@ import { Link } from "react-router-dom";
 function Finalizing({ data }) {
   const [title, setTitle] = useState("");
   const [tags, setTags] = useState("");
-  const [language, setLanguage] = useState();
+  const [language, setLanguage] = useState("");
+  const [tagsStore, setTagsStore] = useState([]);
+  const [languageStore, setLanguageStore] = useState();
   const [description, setDescription] = useState("");
-  // const [views, setViews] = useState("");
   return (
     <div className="bg-black h-screen w-screen bg-opacity-20 flex flex-col items-center justify-center overflow-auto">
-      <div className="bg-white w-[700px] min-h-[750px]  h-fit flex flex-col flex-shrink shadow-md p-10 pb-0">
+      <div className="bg-white w-[700px] min-h-[750px]   flex flex-col flex-shrink shadow-md p-10 pb-0">
         <div className="text-2xl font-bold">
           <a className="text-acc">Y</a>Courses
         </div>
@@ -59,22 +60,6 @@ function Finalizing({ data }) {
               </div>
               <div className="outline w-full my-2 group-focus-within:outline-acc"></div>
             </div>
-
-            {/* Views */}
-            {/* <div className="group">
-              <div className="flex justify-between">
-                <div className="uppercase font-bold text-sm">Views</div>
-                <input
-                  value={views}
-                  onChange={(e) => setViews(e.target.value)}
-                  className="outline-none text-right flex-grow font-bold"
-                  type="text"
-                  name="views"
-                />
-              </div>
-              <div className="outline w-full my-2 group-focus-within:outline-acc"></div>
-            </div> */}
-
             <div className="group">
               <div className="flex justify-between">
                 <div className="uppercase font-bold text-sm">Language</div>
@@ -86,8 +71,13 @@ function Finalizing({ data }) {
                   name="title"
                 />
               </div>
-              <div className="flex">
-                <div className="bg-gray-200 py-1 m-1 px-4 flex gap-2 rounded-2xl">Hindi <p>x</p> </div>
+              <div className="flex gap-2 py-1">
+                {languageStore && (
+                  <div className="bg-gray-200 py-1 px-4 flex gap-2 rounded-2xl">
+                    {languageStore.title}
+                    <p onClick={() => {setLanguageStore(null)}}>x</p>
+                  </div>
+                )}
               </div>
               <div className="outline w-full my-2 group-focus-within:outline-acc"></div>
             </div>
@@ -96,17 +86,36 @@ function Finalizing({ data }) {
               <div className="flex justify-between">
                 <div className="uppercase font-bold text-sm">Tags</div>
                 <input
-                  value={title}
-                  onChange={(e) => setTitle(e.target.value)}
+                  value={tags}
+                  onChange={(e) => setTags(e.target.value)}
                   className="outline-none text-right flex-grow font-bold"
                   type="text"
                   name="title"
                 />
+
               </div>
-              <div className="flex">
-                <div className="bg-gray-200 py-1 m-1 px-4 flex gap-2 rounded-2xl">UI&UX <p>x</p> </div>
+              <div className="outline w-full my-2 group-focus-within:outline-acc  "></div>
+              <div className="bg-white outline rounded-sm outline-1 outline-gray-300 shadow max-h-72 mt-4 p-1 ">
+                <div className="px-2 py-1 hover:bg-gray-200  text-gray-600 ">
+                    Flask
+                </div>
+                <div className="px-2 py-1 hover:bg-gray-200  text-gray-600 ">
+                    Flask
+                </div>
+                <div className="px-2 py-1 hover:bg-gray-200  text-gray-600 ">
+                    Flask
+                </div>
+                <div className="px-2 py-1 hover:bg-gray-200  text-gray-600 ">
+                    Flask
+                </div>
+                <div className="px-2 py-1 hover:bg-gray-200  text-gray-600 ">
+                    Flask
+                </div>
+                <div className="px-2 py-1 hover:bg-gray-200  text-gray-600 ">
+                    Can't find add
+                </div>
+               
               </div>
-              <div className="outline w-full my-2 group-focus-within:outline-acc"></div>
             </div>
           </div>
         </div>
