@@ -42,7 +42,7 @@ function App() {
       withCredentials: true, // Include credentials (cookies) in the request
     };
     axios(axiosConfig) .then(response => {
-      // console.log('Response:', response.data);
+      console.log('Response:', response.data);
       dispatch(addUser({name : response.data.name , email :response.data.email , username : response.data.username,img : response.data.img }))
     })
     .catch(error => {

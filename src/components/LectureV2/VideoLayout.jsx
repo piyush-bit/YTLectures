@@ -1,7 +1,36 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import Description from './Description'
+import axios from 'axios';
 
 function VideoLayout({data,progress,next,previous}) {
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(false);
+  useEffect(() => {
+    console.log('data',data._id)
+  })
+  const onCompleteHandler = async (e) => {
+    try {
+      const axiosConfig = {
+        method: "post",
+        url: `${import.meta.env.VITE_BASE_URL}/api/progress/checklecture`,
+        data: { courseId : data._id, lectureId : "m="+progress[0]+"&l="+progress[1]},
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        withCredentials: true, // Include credentials (cookies) in the request
+      };
+      setLoading(true);
+      const d = await axios(axiosConfig)
+      console.log("result", d);
+      setResult(d.data);
+      setLoading(false);
+    } catch (error) {
+      setError(error);
+      setLoading(false);
+      console.log(error);
+    }
+  }
   return (
     <div className="flex-grow bg-yellow-10 pl-4 pr-12 pt-8 h-screen overflow-auto">
           <div className="flex mb-10 mt-4 items-center">
@@ -61,7 +90,8 @@ function VideoLayout({data,progress,next,previous}) {
             data.data.data[progress[0]].data[progress[1]].description}</div> */}
             <Description data={data.data.data[progress[0]].data[progress[1]].description}/>
 
-            <div className="group duration-300 flex gap-4 items-center justify-center outline rounded-md outline-1 outline-gray-500 px-5 py-3 w-fit ml-auto my-9 mx-5 hover:bg-acc hover:outline-acc hover:text-white cursor-pointer hover:mr-0 transition-all">
+            <div onClick={onCompleteHandler}
+             className="group duration-300 flex gap-4 items-center justify-center outline rounded-md outline-1 outline-gray-500 px-5 py-3 w-fit ml-auto my-9 mx-5 hover:bg-acc hover:outline-acc hover:text-white cursor-pointer hover:mr-0 transition-all">
               <p className='-mr-8 group-hover:mr-0 transition-all'>Completed</p>
               <img className="h-5 rotate-180 scale-0  invert transition-all group-hover:scale-100 -my-4" src="https://cdn-icons-png.flaticon.com/64/2985/2985161.png" alt="" />
             </div>
