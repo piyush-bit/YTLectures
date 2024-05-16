@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import Video from "./Video";
 import { formatTimetohour } from "../../utils/timeConvert";
 
-function VideoSeq({ data , index , active ,progress , setProgress }) {
+function VideoSeq({ data , index , active ,progress , setProgress , progressData  }) {
     const [openstatus,setOpenstatus] = useState(active)
   return (
     <div className="my-2">
@@ -26,7 +26,7 @@ function VideoSeq({ data , index , active ,progress , setProgress }) {
         <div className={`pl-3  transition-all  ${openstatus?'':'hidden'}`}>
             {data.data.map((e ,i)=>{
 
-                return <Video key={index+','+i} data={e} active={active&&i==progress[1]} index={[index,i]}  setProgress={setProgress}/>
+                return <Video key={index+','+i} data={e} active={active&&i==progress[1]} index={[index,i]}  setProgress={setProgress} progressData={progressData}/>
             })}
             
 

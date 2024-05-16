@@ -2,7 +2,7 @@ import React from "react";
 import { PTtocolConvert } from "../../utils/timeConvert";
 import { useNavigate } from "react-router-dom";
 
-function Video({ data, active, setProgress, index }) {
+function Video({ data, active, setProgress, index , progressData }) {
   const navigate = useNavigate();
 
   const clickHandler = (e) => {
@@ -12,18 +12,18 @@ function Video({ data, active, setProgress, index }) {
   return (
     <div
       onClick={clickHandler}
-      className={`flex items-center bg-opacity-10 ${
+      className={`flex items-center bg-opacity-10  ${
         active ? "back-grad" : ""
       } grad-acc hover:bg-opacity-10`}
     >
       <div
         className={`w-1  h-16 ${
-          active ? "bg-acc" : "bg-gray-300"
+          active ? "bg-acc" : (progressData&&progressData[`m=${index[0]}&l=${index[1]}`]?"bg-blue-300":"bg-gray-300")
         } mr-2 font-medium flex-shrink-0`}
       ></div>
       <div className="leading-5 ">{`${data.title}`}</div>
 
-      <div className="text-xs text-gray-600 ml-auto flex-shrink rotate-90">
+      <div className="text-xs text-gray-600 ml-auto flex-shrink rotate-90 ">
         {PTtocolConvert(data.duration)}
       </div>
     </div>

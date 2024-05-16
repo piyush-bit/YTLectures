@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { UNSAFE_NavigationContext, useLocation, useNavigate, useParams } from "react-router-dom";
+import {  useLocation, useNavigate, useParams } from "react-router-dom";
 import VideoSeq from "./VideoSeq";
 import axios from "axios";
 import VideoLayout from "./VideoLayout";
 import { formatTimetohour } from "../../utils/timeConvert";
 
 function LecturePage({ data: g , setPage }) {
-  console.log('g',g)
+  // console.log('g',g)
   const [data, setData] = useState(g);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
@@ -19,6 +19,7 @@ function LecturePage({ data: g , setPage }) {
   const l = queryParams.get('l');
 
   const [progress, setProgress] = useState([Number(m?m:0), Number(l ? l : 0)]);
+  const [progressData , setProgressData] = useState();
 
   useEffect(() => {
     if (g != undefined) return;
@@ -37,7 +38,26 @@ function LecturePage({ data: g , setPage }) {
         setLoading(false);
       }
     })();
+
+
   }, []);
+
+  useEffect(() => {
+    const getProgress = async()=>{
+      console.log('progress',productId);
+      try {
+        const result = await axios.get(
+          `${import.meta.env.VITE_BASE_URL}/api/progress/getprogress?courseId=${productId}`,
+          {withCredentials: true}
+        )
+        setProgressData(result.data.data.completedLectures);
+      } catch (error) {
+        console.log(error);
+      }
+
+    }
+    getProgress()
+  },[])
 
 
   const next = ()=>{
@@ -78,7 +98,7 @@ function LecturePage({ data: g , setPage }) {
             />
           </div>
         </div>
-        <VideoLayout data={data} progress={progress}  next={next} previous={previous}/>
+        <VideoLayout data={data} progress={progress}  next={next} previous={previous} progressData={progressData} setProgressData={setProgressData}/>
         <div className="outline outline-1 outline-gray-200 my-6 "></div>
         <div className="pr-5 pl-8 pt-10 w-[410px] flex-shrink-0 h-screen overflow-auto">
         <div className="text-xs -mb-">{`${data.data.data.length} modules . ${formatTimetohour(data.duration)}`}</div>
@@ -90,7 +110,7 @@ function LecturePage({ data: g , setPage }) {
           <div className="mb-16"> </div>
           <div className="flex gap-2"></div>
           {data.data.data.map((e, i) => {
-            return <VideoSeq key={i} data={e} index={i} active={progress[0]==i} progress={progress} setProgress={setProgress}/>;
+            return <VideoSeq key={i} data={e} index={i} active={progress[0]==i} progress={progress} setProgress={setProgress} progressData={progressData}/>;
           })}
         </div>
       </div>

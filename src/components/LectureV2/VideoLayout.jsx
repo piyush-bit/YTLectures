@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import Description from './Description'
 import axios from 'axios';
 
-function VideoLayout({data,progress,next,previous}) {
+function VideoLayout({data,progress,next,previous,progressData , setProgressData }) {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
   useEffect(() => {
@@ -22,15 +22,41 @@ function VideoLayout({data,progress,next,previous}) {
       };
       setLoading(true);
       const d = await axios(axiosConfig)
-      console.log("result", d);
-      setResult(d.data);
+      // console.log("result", d);
       setLoading(false);
+      setProgressData({...progressData,["m="+progress[0]+"&l="+progress[1]]:true})
+      next()
     } catch (error) {
       setError(error);
       setLoading(false);
       console.log(error);
     }
   }
+
+  const onUncheckHandler = async (e) => {
+    try {
+      const axiosConfig = {
+        method: "post",
+        url: `${import.meta.env.VITE_BASE_URL}/api/progress/unchecklecture`,
+        data: { courseId : data._id, lectureId : "m="+progress[0]+"&l="+progress[1]},
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        withCredentials: true, // Include credentials (cookies) in the request
+      };
+      setLoading(true);
+      const d = await axios(axiosConfig)
+      // console.log("result", d);
+      setLoading(false);
+      setProgressData(d.data.data);
+    } catch (error) {
+      setError(error);
+      setLoading(false);
+      console.log(error);
+    }
+  }
+
   return (
     <div className="flex-grow bg-yellow-10 pl-4 pr-12 pt-8 h-screen overflow-auto">
           <div className="flex mb-10 mt-4 items-center">
@@ -90,11 +116,23 @@ function VideoLayout({data,progress,next,previous}) {
             data.data.data[progress[0]].data[progress[1]].description}</div> */}
             <Description data={data.data.data[progress[0]].data[progress[1]].description}/>
 
-            <div onClick={onCompleteHandler}
+            {!(progressData&&progressData["m="+progress[0]+"&l="+progress[1]])?<div onClick={onCompleteHandler}
              className="group duration-300 flex gap-4 items-center justify-center outline rounded-md outline-1 outline-gray-500 px-5 py-3 w-fit ml-auto my-9 mx-5 hover:bg-acc hover:outline-acc hover:text-white cursor-pointer hover:mr-0 transition-all">
-              <p className='-mr-8 group-hover:mr-0 transition-all'>Completed</p>
+              <p className='-mr-8 group-hover:mr-0 '>Completed</p>
               <img className="h-5 rotate-180 scale-0  invert transition-all group-hover:scale-100 -my-4" src="https://cdn-icons-png.flaticon.com/64/2985/2985161.png" alt="" />
+            </div>:
+            <div className='flex '>
+            <div onClick={onUncheckHandler}
+             className="group duration-300 flex gap-4 items-center justify-center outline rounded-md outline-1 outline-gray-500 px-5 py-3 w-fit ml-auto my-9 mx-5 hover:bg-acc hover:outline-acc hover:text-white cursor-pointer  transition-all">
+              <p className=''>Uncheck</p>
             </div>
+            <div onClick={next}
+            className="group duration-300 flex gap-4 items-center justify-center outline rounded-md outline-1 outline-gray-500 px-5 py-3 w-fit  my-9 mx-5 hover:bg-acc hover:outline-acc hover:text-white cursor-pointer  transition-all">
+            <p className=''>NEXT</p>
+            </div>
+
+            </div>}
+            
           </div>
         </div>
   )
