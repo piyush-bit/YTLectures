@@ -1,11 +1,6 @@
 
 import { Route, RouterProvider, Routes, createBrowserRouter, useLocation } from 'react-router-dom'
 import './App.css'
-import Main from './components/Home/Main'
-import Home from './components/Home/Home/Home'
-import AboutUs from './components/Home/AboutUs/AboutUs'
-import Explore from './components/Home/Explore/Explore'
-import Create from './components/Home/Create/Create'
 import {default as V2} from './components/HomeV2/main.jsx'
 import DetailPage from './components/DetailPage/DetailPage.jsx'
 import LoginPage from './components/LoginResister/LoginPage.jsx'

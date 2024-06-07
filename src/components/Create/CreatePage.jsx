@@ -5,6 +5,9 @@ import locale from "react-json-editor-ajrm/locale/en";
 
 import DetailPage from "../DetailPage/DetailPage";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
+import { createPortal } from "react-dom";
+import VideoSeq from "../LectureV2/VideoSeq";
 
 function CreatePage() {
   const navigate = useNavigate()
@@ -14,8 +17,29 @@ function CreatePage() {
   const [loading , setLoading] = useState()
   const [result, setResult] = useState();
 
+  const onGenerateHandler = async ()=>{
+    console.log(playlistURL);
+      const response = await axios.post(`${import.meta.env.VITE_BASE_URL}/api/generate/playlist`,{id:playlistURL})
+      console.log(response.data);
+      setResult(response.data);
+  }
+
   return (
     <>
+    {result&&
+      createPortal(<div className="absolute h-screen w-screen bg-black bg-opacity-10 top-0 py-20 overflow-auto">
+        <div className="bg-white min-w-[300px] w-[60%] min-h-full h-fit mx-auto px-10 py-3 ">
+        <p>Here is the Generated check it out </p>
+        {result.data.map((e, i) => {
+          return <VideoSeq key={i} data={e} index={i} active={false} progress={[0,0]} setProgress={()=>{}} progressData={{}}/>;
+        })}
+        <div className="flex justify-end">
+          <button>Regenerate</button>
+          <button>Proceed</button>
+        </div>
+        </div>
+         </div>,document.getElementById("portal"))
+    }
       <div className="flex bg-back w-screen pt-10">
         <div className="flex h-screen w-screen">
           <div
@@ -41,14 +65,26 @@ function CreatePage() {
               <div className="font-semibold text-lg capitalize my-3 text-gray-600 hidden">
                 Enter youtube Playlist link 
               </div >
-              <input type="text" placeholder="https://www.youtube.com/playlist?list=PLTCrU9sGyburBw9wNOHebv9SjlE4Elv5a" className="shadow-md h-32 w-full px-4 text-lg text-gray-600 " value={playlistURL} onChange={(e)=>{setPlaylistURL(e.target.value)}}/>
+              <input type="text" placeholder="PLTCrU9sGyburBw9wNOHebv9SjlE4Elv5a" className="shadow-md h-32 w-full px-4 text-lg text-gray-600 " value={playlistURL} onChange={(e)=>{setPlaylistURL(e.target.value)}}/>
               <div className="flex">
               <div className="font-semibold text-lg capitalize my-3 text-gray-600">
-                Enter youtube Playlist link 
+                Enter youtube Playlist Id <br /> Ex-PLTCrU9sGyburBw9wNOHebv9SjlE4Elv5a
+                {error && <div className="text-red-500">{error}</div>}
               </div >
-              <div className="ml-auto px-8 py-4 text-2xl bg-acc my-3 text-white flex gap-4">
-                <img src="https://cdn-icons-png.flaticon.com/64/11865/11865326.png" alt=""  className=" invert h-8"/>
+              <div  onClick={onGenerateHandler}
+              className="ml-auto px-8 py-4 text-2xl bg-acc my-3 text-white flex gap-4">
+                {loading?
+                    <>
+                      <svg
+                        class="animate-spin h-5 w-5 mr-3 ..."
+                        viewBox="0 0 24 24"
+                      ></svg>
+                      Processing...
+                    </>:<>
+                    <img src="https://cdn-icons-png.flaticon.com/64/11865/11865326.png" alt=""  className=" invert h-8"/>
+                
                 Generate
+                    </>}
               </div>
               </div>
 
