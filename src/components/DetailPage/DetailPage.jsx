@@ -64,7 +64,7 @@ function DetailPage({data}) {
             alt=""
           />
         </div>
-        <div className="max-w-[60rem] h-screen pr-8 pl-6 pb-10 overflow-y-auto">
+        <div className="max-w-[60rem] flex-grow h-screen pr-8 pl-6 pb-10 overflow-y-auto">
           <div className="flex items-center gap-3  h-14">
             <div className="mr-auto text-2xl font-semibold text-gray-800">
               Course Details
@@ -130,6 +130,12 @@ function DetailPage({data}) {
             </div>
             <div onClick={()=>{setIsReadmore(!isReadmore)}} className="text-acc mt-3 hover:cursor-pointer">{isReadmore ? "Read Less" : "Read More"}</div>
           </div>
+          <div className="outline xl:hidden outline-1 outline-gray-200 mx-0 my-10"></div>
+
+          <div className="xl:hidden">
+          <SunbscribeCard data={extra} setPage={setPage}/>
+          </div>
+
 
           <div className="outline outline-1 outline-gray-200 mx-0 my-10"></div>
 
@@ -139,8 +145,10 @@ function DetailPage({data}) {
          })}
         </div>
 
-        <div className="h-screen outline outline-1 outline-gray-200 "></div>
+        <div className="h-screen outline outline-1 outline-gray-200 hidden xl:block "></div>
+        <div className="hidden xl:flex">
         <SunbscribeCard data={extra} setPage={setPage}/>
+        </div>
       </div>
     </div>
   );

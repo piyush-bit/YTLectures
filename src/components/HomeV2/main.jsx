@@ -33,7 +33,6 @@ function main() {
         if(section==EXPLORE)
          url = `${import.meta.env.VITE_BASE_URL}/api/course/getwithtag`
         else if(section==SUB){
-          
           url = `${import.meta.env.VITE_BASE_URL}/api/user/course/subscribedCourses?q=`
         }
         setData([])
@@ -74,17 +73,18 @@ function main() {
   }, []);
 
   return (
-    <div className="bg-back min-h-screen ">
+    <div className="bg-back min-h-screen">
       <div
-        className=" flex justify-between h-18 px-16 pt-10 pb-12 items-center  top-0 bg-back z-100 sticky w-screen z-10 "
+        className=" flex flex-col flex-wrap  justify-between h-18 px-4  md:px-16 pt-10 md:pb-12 items-center  top-0 bg-back z-100 sticky w-screen z-10 "
         style={{
           background:
             "linear-gradient(deg, rgba(255,255,255,1) 0%, rgba(255,255,255,1) 94%, rgba(255,255,255,0) 100%)",
         }}
       >
-        <div className="flex">
-          <div className="text-5xl font-bold mx-4 mt-[-6px] hover:cursor-pointer">
-            <a className="text-acc">Y</a>Courses
+        <div className="flex w-full">
+        <div className="flex mb-3 gap-2 mr-auto ">
+          <div className="text-5xl font-bold md:mx-4 mt-[-6px] hover:cursor-pointer">
+            <a className="text-acc">Y</a>C<span className="hidden md:inline">ourses</span>
           </div>
           <div
             onClick={() => {
@@ -95,12 +95,12 @@ function main() {
             +
           </div>
         </div>
-        <div className="flex gap-2">
+        <div className="hidden md:flex gap-2 my-4">
           <Tabs name="Explore" id={EXPLORE} num="12" isActive={section==EXPLORE} setSection={setSection}  />
           |
           <Tabs name="Subscribed" id={SUB} num="2" isActive={section==SUB} setSection={setSection}/>
         </div>
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-3 ml-auto">
           <div className="h-7 w-7  bg-white rounded-full flex items-center justify-center shadow-md ">
             <img
               src="https://cdn-icons-png.flaticon.com/64/1827/1827422.png"
@@ -136,8 +136,25 @@ function main() {
             <ProfileCard data={user} setProfileClicked={setProfileClicked} />
           </div>
         </div>
+        </div>
+
+        <div className="mx-auto md:hidden flex gap-2 my-4">
+          <Tabs name="Explore" id={EXPLORE} num="12" isActive={section==EXPLORE} setSection={setSection}  />
+          |
+          <Tabs name="Subscribed" id={SUB} num="2" isActive={section==SUB} setSection={setSection}/>
+        </div>
       </div>
-      <div className="h-screen flex transition-all w-72 fixed overflow-y-auto overflow-x-hidden ">
+      {tags&&<div className="w-full flex gap-2 px-5 flex-wrap  my-4 md:hidden ">
+        <div onClick={()=>{setTagSelected(null);
+              setTagId(null)}}
+            className={`py-2 my-1 shadow-sm px-4 text-xs w-fit font-semibold uppercase rounded-full ${!tagSelected?"bg-white":""}`}>All</div>
+          {tags.map((e)=>{
+            return <div onClick={()=>{setTagSelected(e.title);
+              setTagId(e._id)}}
+            className={`py-2 my-1 shadow-sm px-4 text-xs w-fit font-semibold uppercase rounded-full ${tagSelected==e.title?"bg-white":""}`}>{e.title}</div>
+          })}
+      </div>}
+      <div className="h-screen hidden md:flex transition-all w-72 fixed overflow-y-auto overflow-x-hidden ">
         <div className="w-72 transition-all  pl-16 pr-2 ">
           <div className="uppercase text-gra text-lg font-bold mt-5 mb-10 ml-4">
             Topics
@@ -170,7 +187,7 @@ function main() {
        
       </div>
       <div className="flex  ">
-        <div className="lecturelist flex flex-wrap gap-16  ml-72 pl-12 pr-12 pb-6 pt-16 justify-center">
+        <div className="lecturelist flex flex-wrap gap-16  md:ml-72 md:mx-12 pb-6 pt-16 justify-center">
           {
             error==401?<div className="text-center">Please Login to see your subscribed courses , <button className="underline" onClick={()=>navigate("/login")}>Login</button></div>:null
           }

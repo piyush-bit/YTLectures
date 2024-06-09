@@ -116,7 +116,7 @@ function LoginPage() {
 
           <div
             onClick={login}
-            className="ml-auto bg-black text-white py-4 px-16 mr-[-2.5rem] uppercase hover:bg-acc transition-all duration-200"
+            className="ml-auto bg-black text-white py-4 md:px-16 px-10 mr-[-2.5rem] uppercase hover:bg-acc transition-all duration-200 "
           >
             Log In
           </div>

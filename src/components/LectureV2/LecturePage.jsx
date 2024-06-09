@@ -100,7 +100,7 @@ function LecturePage({ data: g , setPage }) {
         </div>
         <VideoLayout data={data} progress={progress}  next={next} previous={previous} progressData={progressData} setProgressData={setProgressData}/>
         <div className="outline outline-1 outline-gray-200 my-6 "></div>
-        <div className="pr-5 pl-8 pt-10 w-[410px] flex-shrink-0 h-screen overflow-auto">
+        <div className="pr-5 hidden lg:block pl-8 pt-10 w-[410px] flex-shrink-0 h-screen overflow-auto">
         <div className="text-xs -mb-">{`${data.data.data.length} modules . ${formatTimetohour(data.duration)}`}</div>
           <div
           onClick={(e)=>{setPage(false)}}

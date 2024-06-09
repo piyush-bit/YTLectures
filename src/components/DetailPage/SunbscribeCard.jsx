@@ -78,7 +78,7 @@ function SunbscribeCard({ data, setPage }) {
   }
 
   return (
-    <div className="ml-8 mr-6 flex-grow justify-center  hidden xl:flex ">
+    <div className="xl:ml-8 xl:mr-6 flex-grow justify-center flex ">
       <div className="bg-white max-w-lg p-5 h-max shadow-md mt-24 hover:shadow-lg">
         <div className="text-2xl font-semibold my-3">Course Statistics</div>
         {/* <div className="flex gap-6 mb-5 ">

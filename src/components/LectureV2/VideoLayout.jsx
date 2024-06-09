@@ -58,10 +58,10 @@ function VideoLayout({data,progress,next,previous,progressData , setProgressData
   }
 
   return (
-    <div className="flex-grow bg-yellow-10 pl-4 pr-12 pt-8 h-screen overflow-auto">
+    <div className="flex-grow bg-yellow-10 px-3 sm:pl-4 sm:pr-12 pt-8 h-screen overflow-auto">
           <div className="flex mb-10 mt-4 items-center">
             <div className=''>
-              <div className="text-xs text-gray-600  ">
+              <div className="text-xs text-gray-600 xs:mb-2  ">
                 {`Module ${progress[0]+1} : ${data.data.data[progress[0]].subtopic}/  Lecture ${progress[1]+1}`}
               </div>
               <div className="text-4xl font-bold">
