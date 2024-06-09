@@ -72,7 +72,7 @@ function App() {
       path : '/forgotpassword' , element :<ForgotPassword/>,
     },
     {
-      path : '/create' , element :<ConstructionAlert/>,
+      path : '/create' , element :<CreatePage/>,
     },
     {
       path : '/lecture' , element :<LecturePage/>,
@@ -86,6 +86,9 @@ function App() {
     {
       path : '/testFinal' , element :<Finalizing/>,
     },
+    {
+      path : "construction" , element :<ConstructionAlert/>
+    }
   ])
 
   if(!serverStated)

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import JsonElement from "./JsonElement";
 import JSONInput from "react-json-editor-ajrm";
 import locale from "react-json-editor-ajrm/locale/en";
@@ -22,7 +22,7 @@ function CreatePage() {
   const [tags,setTags] = useState()
   const [languages,setLanguages] = useState();
  
-  const [useAi,setUseAi] = useState(false);
+  const [useAi,setUseAi] = useState(true);
 
   const checkAviabilityandGenerate = async ()=>{
       try {
@@ -47,6 +47,10 @@ function CreatePage() {
       
       }
   }
+
+  useEffect(()=>{
+    console.log(useAi)
+  },[useAi])
 
   const onGenerateHandler = async ()=>{
     console.log(playlistURL);
@@ -82,8 +86,8 @@ function CreatePage() {
         <Finalizing result={result} tagOptions={tags} languageOptions={languages}/>
          </div>,document.getElementById("portal"))
          }
-      <div className="flex bg-back w-screen pt-10">
-        <div className="flex h-screen w-screen">
+      <div className="flex  bg-back w-screen pt-10">
+        <div className="flex min-h-screen w-screen">
           <div
             onClick={() => {
               navigate(-1);
@@ -96,7 +100,8 @@ function CreatePage() {
               alt=""
             />
           </div>
-          <div className="flex-grow h-full pr-8 pl-6 pb-10 overflow-y-auto">
+        <div className="flex w-full  lg:flex-row flex-col">
+        <div className="flex-grow h-full pr-8 pl-6 pb-10 lg:overflow-y-auto">
             <div className="flex items-center gap-3  h-14">
               <div className="mr-auto text-4xl font-semibold text-gray-700">
                 Create Playlist
@@ -108,10 +113,10 @@ function CreatePage() {
                 Enter youtube Playlist link 
               </div >
               <input type="text" placeholder="PLTCrU9sGyburBw9wNOHebv9SjlE4Elv5a" className="shadow-md h-32 w-full px-4 text-lg text-gray-600 " value={playlistURL} onChange={(e)=>{setPlaylistURL(e.target.value)}}/>
-              <div className="flex">
+              <div className="flex flex-col sm:flex-row">
               <div className="font-semibold text-lg capitalize my-3 text-gray-600">
                 Enter youtube Playlist Id <br />
-                <input type="checkbox" onChange={(e)=>{setUseAi(e.target.checked)}} value={useAi} name="" id="" /> 
+                <input type="checkbox" defaultChecked={true}  onChange={(e)=>{setUseAi(e.target.checked)}} value={useAi} name="" id="" /> 
                 <span className="text-base ml-3">Use AI sorting</span>
                 {error && <div className="text-red-500">{error}</div>}
               </div >
@@ -135,16 +140,16 @@ function CreatePage() {
               <div className="mx-auto text-xl text-gray-600 my-4">
                 OR
               </div>
-              <div className=" flex items-center capitalize gap-2 bg-gray-200 w-fit px-4 py-2 mx-auto my-8">
+              <div onClick={()=>navigate("/construction")} className=" flex items-center capitalize gap-2 bg-gray-200 w-fit px-4 py-2 mx-auto my-8">
                 <img className="h-10 " src="https://cdn-icons-png.flaticon.com/64/1698/1698477.png" alt="" />
                 make your custom playlist
               </div>
             </div>
           </div>
-          <div className="h-full outline outline-1 outline-gray-200 "></div>
-          <div className=" h-full p-10 flex ">
+          <div className="h-full outline outline-1 hidden lg:block outline-gray-200 "></div>
+          <div className=" h-full  flex ">
 
-            <div className="bg-white p-16 mt-36 h-fit ">
+            <div className="bg-white p-16 lg:mt-36 h-fit mx-auto ">
               <div className="text-2xl font-semibold">
                 How it Works !
               </div>
@@ -175,6 +180,7 @@ function CreatePage() {
             </div>
 
           </div>
+        </div>
           
         </div>
       </div>

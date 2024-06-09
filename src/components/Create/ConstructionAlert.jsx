@@ -8,11 +8,6 @@ function ConstructionAlert() {
 
         <br />
         <br />
-
-        <h1 className='text-2xl'>Features</h1>
-        <h1>• Create Playlist with youtube playlist id</h1>
-
-
     </div>
   )
 }
