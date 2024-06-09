@@ -10,13 +10,8 @@ import Explore from "../Home/Explore/Explore";
 
 function main() {
 
-
   const SUB = 'sub'
   const EXPLORE = 'explore'
-
-
-  
-
 
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
@@ -27,6 +22,7 @@ function main() {
   const [tags , setTags]=useState()
   const [profileclicked, setProfileClicked] = useState(false);
   const [tagId, setTagId] = useState();
+  const [] = useState();
   const user = useSelector((state) => state.user);
   const navigate = useNavigate();
 
@@ -36,8 +32,11 @@ function main() {
         let url 
         if(section==EXPLORE)
          url = `${import.meta.env.VITE_BASE_URL}/api/course/getwithtag`
-        else if(section==SUB)
-        url = `${import.meta.env.VITE_BASE_URL}/api/user/course/subscribedCourses?q=`
+        else if(section==SUB){
+          
+          url = `${import.meta.env.VITE_BASE_URL}/api/user/course/subscribedCourses?q=`
+        }
+        setData([])
         setLoading(true);
         const d = await axios.get(
           url , { withCredentials : true , params: {tagId:tagId} }
@@ -47,6 +46,10 @@ function main() {
         setLoading(false);
         setError(false)
       } catch (error) {
+        if(error.response.status==401){
+          setError(401)
+        }
+        else
         setError(error);
         setLoading(false);
       }
@@ -168,7 +171,10 @@ function main() {
       </div>
       <div className="flex  ">
         <div className="lecturelist flex flex-wrap gap-16  ml-72 pl-12 pr-12 pb-6 pt-16 justify-center">
-          <div className={`${error ? "" : "hidden"}`}>{error.message}</div>
+          {
+            error==401?<div className="text-center">Please Login to see your subscribed courses , <button className="underline" onClick={()=>navigate("/login")}>Login</button></div>:null
+          }
+          <div className={`${error&&error!=401 ? "" : "hidden"}`}>{error.message}</div>
           <div className={`${loading ? "" : "hidden"}`}>{"Loading ! May take 50-80 s server is starting "}</div>
           {data.map((e) => (
             <LectureCard key={e._id} data={e} />
