@@ -117,7 +117,7 @@ function DetailPage({data}) {
             </div>
             |
             <div className="text-lg px-4  py-1 rounded-sm  text-gray-600 outline outline-gray-600 outline-1">
-            {extra?.language || 'Hinglish'}
+            {extra?.language?.title || 'Hinglish'}
             </div>
           </div>
 

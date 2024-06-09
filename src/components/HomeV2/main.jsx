@@ -60,7 +60,7 @@ function main() {
     (async () => {
       try {
         const d1 = await axios.get(
-          `${import.meta.env.VITE_BASE_URL}/api/explore/id`
+          `${import.meta.env.VITE_BASE_URL}/api/explore/tags`
         );
         console.log(d1.data);
         setTags(d1.data);
