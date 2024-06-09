@@ -187,7 +187,7 @@ function main() {
        
       </div>
       <div className="flex  ">
-        <div className="lecturelist flex flex-wrap gap-16  md:ml-72 md:mx-12 pb-6 pt-16 justify-center">
+        <div className="lecturelist flex flex-wrap gap-16  md:ml-[18.5rem] md:px-3 md:mr-6  pb-6 pt-16 justify-center">
           {
             error==401?<div className="text-center">Please Login to see your subscribed courses , <button className="underline" onClick={()=>navigate("/login")}>Login</button></div>:null
           }
