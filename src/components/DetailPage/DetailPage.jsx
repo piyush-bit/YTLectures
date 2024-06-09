@@ -12,6 +12,8 @@ function DetailPage({data}) {
   const [extra, setExtra] = useState(data);
   const [error, setError] = useState(false);
 
+  const [isReadmore, setIsReadmore] = useState(false);
+
   
   const navigate = useNavigate();
   
@@ -123,10 +125,10 @@ function DetailPage({data}) {
 
           <div className="pt-6">
             <div className="text-2xl font-semibold my-3">Course Statistics</div>
-            <div className="text-gray-500 line-clamp-2">
+            <div className={`text-gray-500 ${!isReadmore&&"line-clamp-2"}`}>
               {extra?.description}
             </div>
-            <div className="text-acc mt-3 hover:cursor-pointer">Read more</div>
+            <div onClick={()=>{setIsReadmore(!isReadmore)}} className="text-acc mt-3 hover:cursor-pointer">{isReadmore ? "Read Less" : "Read More"}</div>
           </div>
 
           <div className="outline outline-1 outline-gray-200 mx-0 my-10"></div>

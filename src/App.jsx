@@ -16,6 +16,7 @@ import Profile from './components/Profile/Profile.jsx'
 import Finalizing from './components/Create/Finalizing.jsx'
 import ConstructionAlert from './components/Create/ConstructionAlert.jsx'
 import ServerStarting from './components/LoadingScreens/ServerStarting.jsx'
+import PlaylistRedirect from './components/PlaylistRedirect.jsx'
 
 
 function App() {
@@ -54,6 +55,9 @@ function App() {
     { path : '/',element : <V2/>, },
     {
       path : '/course/:productId/#' , element :<DetailPage/>,
+    },
+    {
+      path : '/course/pl/:playlistId' , element :<PlaylistRedirect/>,
     },
     {
       path : '/course/:productId/' , element :<DetailPage/>,

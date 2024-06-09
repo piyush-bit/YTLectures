@@ -8,6 +8,8 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { createPortal } from "react-dom";
 import VideoSeq from "../LectureV2/VideoSeq";
+import Resultshow from "./Resultshow";
+import Finalizing from "./Finalizing";
 
 function CreatePage() {
   const navigate = useNavigate()
@@ -17,29 +19,69 @@ function CreatePage() {
   const [loading , setLoading] = useState()
   const [result, setResult] = useState();
 
+  const [tags,setTags] = useState()
+  const [languages,setLanguages] = useState();
+ 
+  const [useAi,setUseAi] = useState(false);
+
+  const checkAviabilityandGenerate = async ()=>{
+      try {
+        setLoading(true)
+        //playlistid as query
+        const res = await axios.get(`${import.meta.env.VITE_BASE_URL}/api/course/getwithplaylistid`,
+        {params:{playlistId:playlistURL}})
+        navigate(`/course/${res.data.course._id}`)
+
+      } catch (error) {
+        //if status is  not 404 throw error
+        if(error.response.status==404){
+          onGenerateHandler();
+          console.log(error);
+        }
+        else{
+          console.log(error);
+          setLoading(false)
+          setError(true)
+          return
+        }
+      
+      }
+  }
+
   const onGenerateHandler = async ()=>{
     console.log(playlistURL);
-      const response = await axios.post(`${import.meta.env.VITE_BASE_URL}/api/generate/playlist`,{id:playlistURL})
-      console.log(response.data);
-      setResult(response.data);
+      try {
+        setLoading(true)
+        const response = await axios.post(`${import.meta.env.VITE_BASE_URL}/api/generate/playlist${useAi?"":"noai"}`,{id:playlistURL})
+        console.log(response.data);
+        setResult(response.data);
+        setLoading(false)
+        const restag = await axios.get(`${import.meta.env.VITE_BASE_URL}/api/explore/tags`,)
+        setTags(restag.data)
+        const reslang = await axios.get(`${import.meta.env.VITE_BASE_URL}/api/explore/languages`,)
+        setLanguages(reslang.data)
+      } catch (error) {
+        setLoading(false)
+        setError(true)
+        console.log(error);
+      }
   }
+
+  const [isFianlizing , setIsFianlizing] = useState()
 
   return (
     <>
-    {result&&
+    {result&&!isFianlizing&&
       createPortal(<div className="absolute h-screen w-screen bg-black bg-opacity-10 top-0 py-20 overflow-auto">
-        <div className="bg-white min-w-[300px] w-[60%] min-h-full h-fit mx-auto px-10 py-3 ">
-        <p>Here is the Generated check it out </p>
-        {result.data.map((e, i) => {
-          return <VideoSeq key={i} data={e} index={i} active={false} progress={[0,0]} setProgress={()=>{}} progressData={{}}/>;
-        })}
-        <div className="flex justify-end">
-          <button>Regenerate</button>
-          <button>Proceed</button>
-        </div>
-        </div>
+        <Resultshow result={result} regenerate={onGenerateHandler} proceed={()=>{setIsFianlizing(true)}} loading={loading} />
          </div>,document.getElementById("portal"))
     }
+    {
+      result&&isFianlizing&&
+      createPortal(<div className="absolute h-screen w-screen bg-black bg-opacity-10 top-0 py-20 overflow-auto">
+        <Finalizing result={result} tagOptions={tags} languageOptions={languages}/>
+         </div>,document.getElementById("portal"))
+         }
       <div className="flex bg-back w-screen pt-10">
         <div className="flex h-screen w-screen">
           <div
@@ -68,10 +110,12 @@ function CreatePage() {
               <input type="text" placeholder="PLTCrU9sGyburBw9wNOHebv9SjlE4Elv5a" className="shadow-md h-32 w-full px-4 text-lg text-gray-600 " value={playlistURL} onChange={(e)=>{setPlaylistURL(e.target.value)}}/>
               <div className="flex">
               <div className="font-semibold text-lg capitalize my-3 text-gray-600">
-                Enter youtube Playlist Id <br /> Ex-PLTCrU9sGyburBw9wNOHebv9SjlE4Elv5a
+                Enter youtube Playlist Id <br />
+                <input type="checkbox" onChange={(e)=>{setUseAi(e.target.checked)}} value={useAi} name="" id="" /> 
+                <span className="text-base ml-3">Use AI sorting</span>
                 {error && <div className="text-red-500">{error}</div>}
               </div >
-              <div  onClick={onGenerateHandler}
+              <div  onClick={checkAviabilityandGenerate}
               className="ml-auto px-8 py-4 text-2xl bg-acc my-3 text-white flex gap-4">
                 {loading?
                     <>

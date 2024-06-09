@@ -81,7 +81,7 @@ function SunbscribeCard({ data, setPage }) {
     <div className="ml-8 mr-6 flex-grow justify-center  hidden xl:flex ">
       <div className="bg-white max-w-lg p-5 h-max shadow-md mt-24 hover:shadow-lg">
         <div className="text-2xl font-semibold my-3">Course Statistics</div>
-        <div className="flex gap-6 mb-5 ">
+        {/* <div className="flex gap-6 mb-5 ">
           <div className="flex text-4xl text-green-600">
             87%
             <div className="text-sm ml-1 text-black">
@@ -94,9 +94,9 @@ function SunbscribeCard({ data, setPage }) {
               People <div>Finished</div>
             </div>
           </div>
-        </div>
+        </div> */}
 
-        <div className="outline outline-gray-200 outline-1 "></div>
+        {/* <div className="outline outline-gray-200 outline-1 "></div> */}
         <img className="my-5 pt-5" src={data?.playlist_img} alt="" />
         <div className="font- text-gray-600">
           {data.review} ★ · ({data.review_number} review)
