@@ -23,6 +23,9 @@ function CreatePage() {
   const [languages,setLanguages] = useState();
  
   const [useAi,setUseAi] = useState(true);
+  const [progress,setProgress] = useState([])
+  const [progressStep,setProgressStep] = useState(0)
+  const [isCompleted,setIsCompleted] = useState(false)
 
   const [InputText,setInputText] = useState("Enter youtube Playlist link")
 
@@ -90,29 +93,105 @@ function CreatePage() {
     setPlaylistURL(e.target.value)
   }
 
-  const onGenerateHandler = async ()=>{
-    console.log(playlistURL);
-      try {
-        setLoading(true)
-        const response = await axios.post(`${import.meta.env.VITE_BASE_URL}/api/generate/playlist${useAi?"":"noai"}`,{id:isValidYouTubePlaylistLink(playlistURL).playlistId})
-        console.log(response.data);
-        setResult(response.data);
-        setLoading(false)
-        const restag = await axios.get(`${import.meta.env.VITE_BASE_URL}/api/explore/tags`,)
-        setTags(restag.data)
-        const reslang = await axios.get(`${import.meta.env.VITE_BASE_URL}/api/explore/languages`,)
-        setLanguages(reslang.data)
-      } catch (error) {
-        setLoading(false)
-        setError(true)
-        console.log(error);
+  const onGenerateHandler = async () => {
+    try {
+      setLoading(true);
+  
+      const response = await fetch(
+        `${import.meta.env.VITE_BASE_URL}/api/generate/playlist${useAi ? "" : "noai"}`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ id: isValidYouTubePlaylistLink(playlistURL).playlistId }),
+        }
+      );
+  
+      const reader = response.body.getReader();
+      const decoder = new TextDecoder("utf-8");
+      let buffer = "";
+  
+      while (true) {
+        const { done, value } = await reader.read();
+  
+        if (done) {
+          // Process any remaining data in the buffer
+          if (buffer.trim()) {
+            const parts = buffer.split("\n---END---\n");
+            for (const part of parts) {
+              if (part.trim()) {
+                try {
+                  const finalProgressUpdate = JSON.parse(part);
+                  console.log("Final parsed data:", finalProgressUpdate);
+  
+                  if (finalProgressUpdate.final) {
+                    setResult(finalProgressUpdate.result);
+                    setIsCompleted(true);
+                  }
+  
+                  setProgress((prevProgress) => [...prevProgress, finalProgressUpdate]);
+                } catch (error) {
+                  console.error("Error parsing final chunk:", error);
+                }
+              }
+            }
+          }
+          break;
+        }
+  
+        const chunkString = decoder.decode(value, { stream: true });
+        buffer += chunkString;
+  
+        // Process complete JSON objects
+        let parts = buffer.split("\n---END---\n");
+        buffer = parts.pop(); // Keep the last incomplete part in the buffer
+  
+        for (const part of parts) {
+          if (part.trim()) {
+            try {
+              const progressUpdate = JSON.parse(part);
+              console.log("Parsed progress update:", progressUpdate);
+              if(progressUpdate.step){
+                setProgressStep(progressUpdate.step)
+              }
+  
+              if (progressUpdate.final) {
+                console.log("final",progressUpdate.final);
+                setResult(progressUpdate.result);
+                setIsCompleted(true);
+              }
+  
+              setProgress((prevProgress) => [...prevProgress, progressUpdate]);
+            } catch (error) {
+              console.error("Error parsing chunk:", error);
+            }
+          }
+        }
       }
-  }
-
+  
+      setLoading(false);
+  
+      // Fetch additional data after the stream ends
+      const [restag, reslang] = await Promise.all([
+        axios.get(`${import.meta.env.VITE_BASE_URL}/api/explore/tags`),
+        axios.get(`${import.meta.env.VITE_BASE_URL}/api/explore/languages`),
+      ]);
+  
+      setTags(restag.data);
+      setLanguages(reslang.data);
+    } catch (error) {
+      setLoading(false);
+      setError(true);
+      console.error(error);
+    }
+  };
+  
   const [isFianlizing , setIsFianlizing] = useState()
 
   return (
     <>
+    
     {result&&!isFianlizing&&
       createPortal(<div className="absolute h-screen w-screen bg-black bg-opacity-10 top-0 py-20 overflow-auto">
         <Resultshow result={result} regenerate={onGenerateHandler} proceed={()=>{setIsFianlizing(true)}} loading={loading} />
@@ -192,7 +271,7 @@ function CreatePage() {
                 How it Works !
               </div>
               <div className="flex gap-3 my-6 items-center">
-                <div className="h-10 w-10 bg-gray-300 rounded-full flex items-center justify-center">1</div>
+                <div className={`h-10 w-10 ${progressStep>=1?"bg-green-300":"bg-gray-300"} rounded-full flex items-center justify-center`}>1</div>
                 <div>
                   <div className="text-xs uppercase text-gray-700">Step-1</div>
                   <div className="">Fetching data from Youtube</div>
@@ -200,7 +279,7 @@ function CreatePage() {
               </div>
 
               <div className="flex gap-3 my-6 items-center">
-                <div className="h-10 w-10 bg-gray-300 rounded-full flex items-center justify-center">2</div>
+                <div className={`h-10 w-10 ${progressStep>=2?"bg-green-300":"bg-gray-300"} rounded-full flex items-center justify-center`}>2</div>
                 <div>
                   <div className="text-xs uppercase text-gray-700">Step-2</div>
                   <div className="">Arrange lectures using AI into <br /> subcategories.</div>
@@ -208,7 +287,7 @@ function CreatePage() {
               </div>
 
               <div className="flex gap-3 my-6 items-center">
-                <div className="h-10 w-10 bg-gray-300 rounded-full flex items-center justify-center">3</div>
+                <div className={`h-10 w-10 ${progressStep>=3?"bg-green-300":"bg-gray-300"} rounded-full flex items-center justify-center`}>3</div>
                 <div>
                   <div className="text-xs uppercase text-gray-700">Step-3</div>
                   <div className="">Structure data and add details</div>
