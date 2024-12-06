@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import LectureCard from "../HomeV2/LectureCard";
 import { useSelector } from "react-redux";
 import axios from "axios";
@@ -9,6 +9,8 @@ function Profile() {
     name: "Saurav",
     username: "saurav",
   };
+
+  const navigate = useNavigate()
 
   const [subscribedCourses,setSubscribedCourses] = useState([])
   const [createdCourses,setCreatedCourses] = useState([])
