@@ -24,6 +24,8 @@ function CreatePage() {
  
   const [useAi,setUseAi] = useState(true);
 
+  const [InputText,setInputText] = useState("Enter youtube Playlist link")
+
   const checkAviabilityandGenerate = async ()=>{
       try {
         setLoading(true)
@@ -48,15 +50,51 @@ function CreatePage() {
       }
   }
 
+  function isValidYouTubePlaylistLink(url) {
+    // Define a regex pattern for YouTube playlist links
+    const playlistRegex = /(?:https?:\/\/)?(?:www\.)?(?:youtube\.com\/playlist\?list=|youtu\.be\/playlist\?list=|youtube\.com\/embed\/playlist\?list=)([a-zA-Z0-9_-]{10,})/;
+
+    // Test the URL against the regex
+    const match = url.match(playlistRegex);
+
+    if (match && match[1]) {
+        return {
+            valid: true,
+            playlistId: match[1],
+        };
+    }
+
+    return {
+        valid: false,
+        playlistId: null,
+    };
+}
+
+
+
   useEffect(()=>{
     console.log(useAi)
   },[useAi])
+
+  const playlistURLHandler = (e)=>{
+    const res = isValidYouTubePlaylistLink(e.target.value)
+    if(res.valid){
+      setInputText("Valid Playlist Id")
+    }
+    else if(e.target.value.length>0){
+      setInputText("Invalid Playlist Id")
+    }
+    else{
+      setInputText("Enter youtube Playlist link")
+    }
+    setPlaylistURL(e.target.value)
+  }
 
   const onGenerateHandler = async ()=>{
     console.log(playlistURL);
       try {
         setLoading(true)
-        const response = await axios.post(`${import.meta.env.VITE_BASE_URL}/api/generate/playlist${useAi?"":"noai"}`,{id:playlistURL})
+        const response = await axios.post(`${import.meta.env.VITE_BASE_URL}/api/generate/playlist${useAi?"":"noai"}`,{id:isValidYouTubePlaylistLink(playlistURL).playlistId})
         console.log(response.data);
         setResult(response.data);
         setLoading(false)
@@ -112,16 +150,16 @@ function CreatePage() {
               <div className="font-semibold text-lg capitalize my-3 text-gray-600 hidden">
                 Enter youtube Playlist link 
               </div >
-              <input type="text" placeholder="PLTCrU9sGyburBw9wNOHebv9SjlE4Elv5a" className="shadow-md h-32 w-full px-4 text-lg text-gray-600 " value={playlistURL} onChange={(e)=>{setPlaylistURL(e.target.value)}}/>
+              <input type="text" className="shadow-md h-32 w-full px-4 text-lg text-gray-600 " value={playlistURL} onChange={playlistURLHandler}/>
               <div className="flex flex-col sm:flex-row">
               <div className="font-semibold text-lg capitalize my-3 text-gray-600">
-                Enter youtube Playlist Id <br />
+                {InputText} <br />
                 <input type="checkbox" defaultChecked={true}  onChange={(e)=>{setUseAi(e.target.checked)}} value={useAi} name="" id="" /> 
                 <span className="text-base ml-3">Use AI sorting</span>
                 {error && <div className="text-red-500">{error}</div>}
               </div >
               <div  onClick={checkAviabilityandGenerate}
-              className="ml-auto px-8 py-4 text-2xl bg-acc my-3 text-white flex gap-4">
+              className="ml-auto px-8 py-4 text-2xl bg-acc my-3 text-white flex gap-4 cursor-pointer">
                 {loading?
                     <>
                       <svg
@@ -149,7 +187,7 @@ function CreatePage() {
           <div className="h-full outline outline-1 hidden lg:block outline-gray-200 "></div>
           <div className=" h-full  flex ">
 
-            <div className="bg-white p-16 lg:mt-36 h-fit mx-auto ">
+            <div className="bg-white p-16 lg:mt-36 h-fit mx-auto  ">
               <div className="text-2xl font-semibold">
                 How it Works !
               </div>

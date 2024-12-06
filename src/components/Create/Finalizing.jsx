@@ -1,12 +1,13 @@
 import axios from "axios";
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 function Finalizing({ result, tagOptions, languageOptions }) {
   const [title, setTitle] = useState(result?.title);
   const [tags, setTags] = useState([]);
   const [language, setLanguage] = useState();
   const [description, setDescription] = useState(result?.description);
+  const navigate = useNavigate()
 
   const onSubmitHandler = async () => {
     try {
@@ -14,6 +15,7 @@ function Finalizing({ result, tagOptions, languageOptions }) {
         title,description
         ,...result
         ,language : undefined
+        
       })
       console.log(res);
 
@@ -28,6 +30,8 @@ function Finalizing({ result, tagOptions, languageOptions }) {
         courseId : res.data[0]._id,
         languageId : language
       })
+
+      navigate(`/course/${res.data[0]._id}`)
 
     } catch (error) {
       

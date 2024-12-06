@@ -10,7 +10,7 @@ function LectureCard({ data }) {
       onClick={(e) => {
         setClicked(!clicked);
         setTimeout(() => {
-          navigate(`/course/${data._id}/#`);
+          navigate(`/course/${data?._id}/#`);
         }, 400);
       }}
       className={`${clicked ? "zoomed" : ""}`}
@@ -54,12 +54,12 @@ function LectureCard({ data }) {
           {
             console.log("tag", JSON.stringify(data)) // It's okay to keep this if it's for debugging
           }
-          {data.tags.slice(0, 2).map((e, index) => {
+          {data?.tags?.slice(0, 2).map((e, index) => {
             // Add a conditional check to append '.' only if it's not the last element
             return index !== 1 ? e.title + " . " : e.title;
           })}
           {/* Add a conditional check to include the language title */}
-          {data.tags.length > 0 && data.language && ` ${data.language.title}`}
+          {data?.tags?.length > 0 && data?.language && ` ${data?.language?.title}`}
         </div>
         <div className="mx-3 text-sm text-gray-600">
           {data?.channelName || "Hitesh Choudhary"}
@@ -68,7 +68,7 @@ function LectureCard({ data }) {
           {data?.review} ★ · {data?.views || "500k views"}
         </div>
         <div className="mx-3 text-sm text-gray-600">
-          {(data && formatTimetohour(data.duration)) || "27 hours"}
+          {(data && formatTimetohour(data?.duration)) || "27 hours"}
         </div>
       </div>
     </div>
