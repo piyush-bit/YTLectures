@@ -6,7 +6,6 @@ import VideoLayout from "./VideoLayout";
 import { formatTimetohour } from "../../utils/timeConvert";
 
 function LecturePage({ data: g , setPage }) {
-  // console.log('g',g)
   const [data, setData] = useState(g);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);

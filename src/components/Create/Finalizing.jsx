@@ -16,6 +16,8 @@ function Finalizing({ result, tagOptions, languageOptions }) {
         ,...result
         ,language : undefined
         
+      },{
+        withCredentials: true
       })
       console.log(res);
 

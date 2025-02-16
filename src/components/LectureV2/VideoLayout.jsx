@@ -68,33 +68,7 @@ function VideoLayout({data,progress,next,previous,progressData , setProgressData
                 {data.data.data[progress[0]].data[progress[1]].title}
               </div>
             </div>
-
-            <div className="ml-auto flex gap-0">
-              <div className=" group w-10 h-10 flex justify-center items-center outline-gray-500 outline outline-1  transition-all  p-2 rounded-l-full ml-6 hover:w-16 hover:ml-0 ">
-                <div className="flex items-center gap-1 "onClick={previous}>
-                  <div className="hidden text-gray-500 group-hover:flex transition-all ">
-                    next
-                  </div>
-                  <img
-                    className="h-5 contrast-0 group-hover:hidden transition-all"
-                    src="https://cdn-icons-png.flaticon.com/64/2985/2985161.png"
-                    alt=""
-                  />
-                </div>
-              </div>
-              <div className=" group w-10 h-10 flex justify-center items-center bg-acc outline outline-1 outline-acc transition-all  p-2 rounded-r-full hover:w-16 hover:-mr-6">
-                <div className="flex items-center gap-1" onClick={next}>
-                  <div className="hidden text-white group-hover:flex transition-all ">
-                    prev
-                  </div>
-                  <img
-                    className="h-5 contrast- invert rotate-180 group-hover:hidden transition-all"
-                    src="https://cdn-icons-png.flaticon.com/64/2985/2985161.png"
-                    alt=""
-                  />
-                </div>
-              </div>
-            </div>
+            <NavButtons previous={previous} next={next}/>
           </div>
           <div className="py-5">
             <iframe
@@ -137,5 +111,39 @@ function VideoLayout({data,progress,next,previous,progressData , setProgressData
         </div>
   )
 }
+
+ const NavButtons =({previous,next})=>{
+
+  
+  return (
+
+    <div className=" group2 ml-auto flex gap-0">
+    <div className=" group w-10 h-10 flex justify-center items-center outline-gray-500 outline outline-1  transition-all  p-2 rounded-l-full ml-6 hover:w-16 hover:ml-0 ">
+      <div className="flex items-center gap-1 cursor-pointer"onClick={previous}>
+        <div className="hidden text-gray-500 group-hover:flex transition-all ">
+          prev
+        </div>
+        <img
+          className="h-5 contrast-0 group2-hover:rotate-180 group-hover:hidden transition-all"
+          src="https://cdn-icons-png.flaticon.com/64/2985/2985161.png"
+          alt=""
+        />
+      </div>
+    </div>
+    <div className=" group w-10 h-10 flex justify-center items-center bg-acc outline outline-1 outline-acc transition-all  p-2 rounded-r-full hover:w-16 hover:-mr-6">
+      <div className="flex items-center gap-1 cursor-pointer" onClick={next}>
+        <div className="hidden text-white group-hover:flex transition-all ">
+          next
+        </div>
+        <img
+          className="h-5 contrast- invert group2-hover:rotate-0 rotate-180 group-hover:hidden transition-all"
+          src="https://cdn-icons-png.flaticon.com/64/2985/2985161.png"
+          alt=""
+        />
+      </div>
+    </div>
+  </div>
+  )
+ }
 
 export default VideoLayout

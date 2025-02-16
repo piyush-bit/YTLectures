@@ -189,18 +189,21 @@ function CreatePage() {
   
   const [isFianlizing , setIsFianlizing] = useState()
 
+  const onClose = ()=>{setIsFianlizing(false);setResult(false);setProgressStep(0)};
+
   return (
     <>
     
     {result&&!isFianlizing&&
-      createPortal(<div className="absolute h-screen w-screen bg-black bg-opacity-10 top-0 py-20 overflow-auto">
-        <Resultshow result={result} regenerate={onGenerateHandler} proceed={()=>{setIsFianlizing(true)}} loading={loading} />
+      createPortal(<div className="absolute h-screen w-screen bg-black bg-opacity-10 top-0 py-20 overflow-auto" onClick={(e)=>{e.stopPropagation() ; console.log("Hello");
+      }}>
+        <Resultshow result={result} regenerate={onGenerateHandler} proceed={()=>{setIsFianlizing(true)}} loading={loading} onClose={onClose} />
          </div>,document.getElementById("portal"))
     }
     {
       result&&isFianlizing&&
-      createPortal(<div className="absolute h-screen w-screen bg-black bg-opacity-10 top-0 py-20 overflow-auto">
-        <Finalizing result={result} tagOptions={tags} languageOptions={languages}/>
+      createPortal(<div className="absolute h-screen w-screen bg-black bg-opacity-10 top-0 py-20 overflow-auto" onClick={(e)=>{e.stopPropagation() ; console.log("Hello");}}>
+        <Finalizing result={result} tagOptions={tags} languageOptions={languages} onClose={onClose}/>
          </div>,document.getElementById("portal"))
          }
       <div className="flex  bg-back w-screen pt-10">
