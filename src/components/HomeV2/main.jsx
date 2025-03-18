@@ -96,9 +96,9 @@ function main() {
           </div>
         </div>
         <div className="hidden md:flex gap-2 my-4">
-          <Tabs name="Explore" id={EXPLORE} num="12" isActive={section==EXPLORE} setSection={setSection}  />
+          <Tabs name="Explore" id={EXPLORE}  isActive={section==EXPLORE} setSection={setSection}  />
           |
-          <Tabs name="Subscribed" id={SUB} num="2" isActive={section==SUB} setSection={setSection}/>
+          <Tabs name="Subscribed" id={SUB}  isActive={section==SUB} setSection={setSection}/>
         </div>
         <div className="flex items-center gap-3 ml-auto">
           <div className="h-7 w-7  bg-white rounded-full flex items-center justify-center shadow-md ">
@@ -139,9 +139,9 @@ function main() {
         </div>
 
         <div className="mx-auto md:hidden flex gap-2 my-4">
-          <Tabs name="Explore" id={EXPLORE} num="12" isActive={section==EXPLORE} setSection={setSection}  />
+          <Tabs name="Explore" id={EXPLORE}  isActive={section==EXPLORE} setSection={setSection}  />
           |
-          <Tabs name="Subscribed" id={SUB} num="2" isActive={section==SUB} setSection={setSection}/>
+          <Tabs name="Subscribed" id={SUB}  isActive={section==SUB} setSection={setSection}/>
         </div>
       </div>
       {tags&&<div className="w-full flex gap-2 px-5 flex-wrap  my-4 md:hidden ">
