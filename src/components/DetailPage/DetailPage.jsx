@@ -69,7 +69,7 @@ function DetailPage({data}) {
             <div className="mr-auto text-2xl font-semibold text-gray-800">
               Course Details
             </div>
-            <div className="flex items-center text-gray-600 gap-2 text-xs outline py-1 px-2 outline-gray-500 outline-1 hover:cursor-pointer hover:bg-gray-200">
+            <div className="flex hidden items-center text-gray-600 gap-2 text-xs outline py-1 px-2 outline-gray-500 outline-1 hover:cursor-pointer hover:bg-gray-200">
               <img
                 className="h-3 contrast-0"
                 src="https://cdn-icons-png.flaticon.com/64/9356/9356210.png"
@@ -77,7 +77,7 @@ function DetailPage({data}) {
               />
               Edit Course
             </div>
-            <div className="w-10 h-6 flex items-center justify-center outline outline-gray-500 m-1 outline-1 hover:cursor-pointer hover:bg-gray-200">
+            <div className="hidden w-10 h-6 flex items-center justify-center outline outline-gray-500 m-1 outline-1 hover:cursor-pointer hover:bg-gray-200">
               <img
                 className="h-5 contrast-0"
                 src="https://cdn-icons-png.flaticon.com/64/3018/3018442.png"
