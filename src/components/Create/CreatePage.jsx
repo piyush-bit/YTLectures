@@ -34,7 +34,7 @@ function CreatePage() {
         setLoading(true)
         //playlistid as query
         const res = await axios.get(`${import.meta.env.VITE_BASE_URL}/api/course/getwithplaylistid`,
-        {params:{playlistId:playlistURL}})
+        {params:{playlistId:isValidYouTubePlaylistLink(playlistURL).playlistId}})
         navigate(`/course/${res.data.course._id}`)
 
       } catch (error) {
