@@ -90,7 +90,7 @@ function Profile() {
         <div className="outline  outline-1  outline-gray-200"></div>
         <div className="flex px-3 py-4 my-2 mx-2 rounded-md gap-6  items-center text-gray-600 font-semibold text-sm hover:bg-gray-50 flex-wrap  ">
               {
-                subscribedCourses.map(course => {
+                createdCourses.map(course => {
                   return <LectureCard data={course}/>
                 })
               }
@@ -100,7 +100,7 @@ function Profile() {
 
         <div className="outline  outline-1  outline-gray-200"></div>
         <div className="flex px-3 py-4 my-2 mx-2 rounded-md gap-6 items-center text-gray-600 font-semibold text-sm hover:bg-gray-50 flex-wrap  ">
-          {createdCourses.map(course => {
+          {subscribedCourses.map(course => {
             return <LectureCard data={course}/>
           })}
         </div>
