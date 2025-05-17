@@ -90,9 +90,27 @@ function main() {
             onClick={() => {
               navigate("/create");
             }}
-            className="h-10 w-10 bg-acc text-white rounded-full flex items-center justify-center relative hover:cursor-pointer shadow-md "
+            className="h-10 w-10 bg-acc  text-white rounded-full flex items-center justify-center relative hover:cursor-pointer shadow-md "
           >
             +
+          </div>
+          <div className="md:flex absolute top-[20px] left-[350px] hidden  bg-white/30 backdrop-blur-sm px-4 py-2 rounded-lg shadow- transform -translate-y-2 transition-all duration-300 hover:scale-105 gap-2 items-center">
+            <svg 
+              xmlns="http://www.w3.org/2000/svg" 
+              width="20" 
+              height="20" 
+              viewBox="0 0 24 24" 
+              fill="none" 
+              stroke="currentColor" 
+              strokeWidth="2" 
+              strokeLinecap="round" 
+              strokeLinejoin="round" 
+              className="text-acc animate-pulse"
+              transform="scale(1,-1)"
+            >
+              <path d="M4.037 4.688a.495.495 0 0 1 .651-.651l16 6.5a.5.5 0 0 1-.063.947l-6.124 1.58a2 2 0 0 0-1.438 1.435l-1.579 6.126a.5.5 0 0 1-.947.063z"/>
+            </svg>
+            <span className="text-sm font-medium text-gray-700">Click to create your playlist</span>
           </div>
         </div>
         <div className="hidden md:flex gap-2 my-4">
